@@ -7,7 +7,7 @@
     <groupId>org.raven</groupId>
     <artifactId>raven</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.2</version>
     <modules>
         <module>raven-serializer</module>
         <module>raven-serializer-withJackson</module>
