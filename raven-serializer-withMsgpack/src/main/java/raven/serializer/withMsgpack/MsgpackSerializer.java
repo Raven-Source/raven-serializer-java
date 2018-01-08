@@ -1,8 +1,6 @@
 package raven.serializer.withMsgpack;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.msgpack.jackson.dataformat.MessagePackFactory;
+import org.msgpack.MessagePack;
 import raven.serializer.BasicDataSerializer;
 import raven.serializer.DataSerializer;
 
@@ -13,75 +11,28 @@ import java.io.OutputStream;
 public class MsgpackSerializer extends BasicDataSerializer
         implements DataSerializer {
 
-    private ObjectMapper mapper;
+    MessagePack msgpack = new MessagePack();
 
-    /**
-     *
-     */
-    public MsgpackSerializer() {
-        mapper = new ObjectMapper(new MessagePackFactory());
-        mapper.configure(JsonGenerator.Feature.AUTO_CLOSE_TARGET, false);
-    }
-
-    /**
-     * @param obj
-     * @return
-     * @throws IOException
-     */
-    @Override
     public byte[] serialize(Object obj) throws IOException {
-        return mapper.writeValueAsBytes(obj);
+        return msgpack.write(obj);
     }
 
-    /**
-     * @param obj
-     * @param outputStream
-     * @throws IOException
-     */
-    @Override
+
     public void serialize(Object obj, OutputStream outputStream) throws IOException {
-        mapper.writeValue(outputStream, obj);
+        msgpack.write(outputStream, obj);
     }
 
-    /**
-     *
-     * @param clazz
-     * @param data
-     * @param <T>
-     * @return
-     * @throws IOException
-     */
-    @Override
+
     public <T> T deserialize(Class<T> clazz, byte[] data) throws IOException {
-        return mapper.readValue(data, clazz);
+        return msgpack.read(data, clazz);
     }
 
-    /**
-     *
-     * @param clazz
-     * @param data
-     * @param index
-     * @param count
-     * @param <T>
-     * @return
-     * @throws IOException
-     */
-    @Override
     public <T> T deserialize(Class<T> clazz, byte[] data, int index, int count) throws IOException {
-        return mapper.readValue(data, index, count, clazz);
+        return msgpack.read(data, index, count, clazz);
     }
 
-    /**
-     *
-     * @param clazz
-     * @param inputStream
-     * @param <T>
-     * @return
-     * @throws IOException
-     */
-    @Override
     public <T> T deserialize(Class<T> clazz, InputStream inputStream) throws IOException {
-        return mapper.readValue(inputStream, clazz);
+        return msgpack.read(inputStream, clazz);
     }
 
 }

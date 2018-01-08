@@ -18,6 +18,8 @@ public class User {
     private long a;
     private Date date2;
 
+    private boolean gender;
+
     public long getA() {
         return a;
     }
@@ -64,5 +66,13 @@ public class User {
 
     public void setList(List<Integer> list) {
         this.list = list;
+    }
+
+    public boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
     }
 }

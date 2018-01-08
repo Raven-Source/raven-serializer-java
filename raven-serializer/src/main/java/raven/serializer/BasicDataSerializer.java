@@ -1,5 +1,9 @@
 package raven.serializer;
 
+import raven.serializer.util.Args;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 
 /**
@@ -7,75 +11,96 @@ import java.nio.charset.Charset;
  */
 public abstract class BasicDataSerializer {
 
-    protected final Charset charset = Charset.forName("UTF-8");
+    protected static final Charset charset = Charset.forName("UTF-8");
 
-    protected final Class stringClazz = String.class;
+    protected static final Class stringClazz = String.class;
 
-    protected final Class byteArrayClazz = byte[].class;
+    protected static final Class byteArrayClazz = byte[].class;
 
     public byte[] serializeString(String obj) {
+
+        Args.notNull(obj, "obj");
         return obj.getBytes(charset);
     }
 
     /**
-     *
      * @param obj
-     * @param res
      * @return
      * @throws NullPointerException
      */
-    public Boolean trySerialize(final Object obj, final ValueBox<byte[]> res)
+    public byte[] trySerialize(final Object obj)
             throws NullPointerException {
 
-        if (res == null)
-            throw new NullPointerException();
+        Args.notNull(obj, "obj");
 
         if (obj instanceof byte[]) {
-            res.setValue((byte[]) obj);
-            return true;
+            return (byte[]) obj;
         } else if (obj instanceof String) {
-            res.setValue(serializeString((String) obj));
-            return true;
+            return serializeString((String) obj);
         }
-        return false;
+        return null;
     }
 
     /**
-     *
      * @param clazz
      * @param data
-     * @param res
      * @return
      * @throws NullPointerException
      */
-    public Boolean tryDeserialize(final Class clazz, final byte[] data, final ValueBox<Object> res)
+    public <T> T tryDeserialize(final Class<T> clazz, final byte[] data)
             throws NullPointerException {
-        return this.tryDeserialize(clazz, data, 0, data.length, res);
+        Args.notNull(data, "data");
+
+        return this.tryDeserialize(clazz, data, 0, data.length);
     }
 
     /**
-     *
      * @param clazz
      * @param data
      * @param index
      * @param count
-     * @param res
      * @return
      * @throws NullPointerException
      */
-    public Boolean tryDeserialize(final Class clazz, final byte[] data, final int index, final int count, final ValueBox<Object> res)
+    public <T> T tryDeserialize(final Class<T> clazz, final byte[] data, final int index, final int count)
             throws NullPointerException {
 
-        if (res == null)
-            throw new NullPointerException();
+        Args.notNull(data, "data");
+
         if (clazz == byteArrayClazz) {
-            res.setValue(res);
-            return true;
+            return (T) data;
         } else if (clazz == stringClazz) {
-            res.setValue(new String(data, index, count, charset));
-            return true;
+            return (T) new String(data, index, count, charset);
         }
-        return false;
+        return null;
+    }
+
+    /**
+     *
+     * @param clazz
+     * @param inputStream
+     * @param <T>
+     * @return
+     * @throws NullPointerException
+     * @throws IOException
+     */
+    public <T> T tryDeserialize(final Class<T> clazz, final InputStream inputStream)
+            throws NullPointerException, IOException {
+
+        Args.notNull(inputStream, "inputStream");
+
+        if (clazz == byteArrayClazz || clazz == stringClazz) {
+            int count = inputStream.available();
+            byte[] data = new byte[count];
+            inputStream.read(data);
+
+            if (clazz == byteArrayClazz) {
+                return (T) data;
+            } else if (clazz == stringClazz) {
+                return (T) new String(data, charset);
+            }
+        }
+        return null;
     }
 
 }

@@ -49,7 +49,7 @@ public class JacksonSerizlizerTest {
         System.out.println(json);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null}";
+        String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null,\"Gender\":false}";
 
         Assert.assertEquals(json, serializerRes);
 
@@ -81,12 +81,35 @@ public class JacksonSerizlizerTest {
         Assert.assertEquals(user.getName(), user2.getName());
         Assert.assertEquals(user.getTime().toString(), user2.getTime().toString());
 
-
         ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
         user2 = serializer.deserialize(User.class, inputStream);
         Assert.assertEquals(user.getName(), user2.getName());
         Assert.assertEquals(user.getTime().toString(), user2.getTime().toString());
         inputStream.close();
+
+        serializerRes = "{\"Id\":123,\"Name\":null,\"List\":[1,3],\"A\":0,\"Gender\":true,\"Date2\":null}";
+        data = serializerRes.getBytes("UTF-8");
+        user2 = serializer.deserialize(User.class, data);
+        Assert.assertEquals(user2.getGender(), true);
+        Assert.assertNull(user2.getName());
+    }
+
+    @Test
+    public void enumTest() throws Exception {
+
+        Paper paper = new Paper();
+        paper.setColorType(ColorType.C);
+        paper.setTitle("人民日报");
+
+
+        DataSerializer serializer = new JacksonSerializer();
+        byte[] data = serializer.serialize(paper);
+        String res = new String(data, "UTF-8");
+        System.out.println(res);
+
+        //res = "{\"colorType\":\"C\"}";
+        Paper paper2 = serializer.deserialize(Paper.class, data);
+        Assert.assertEquals(paper.getColorType(), paper2.getColorType());
 
     }
 

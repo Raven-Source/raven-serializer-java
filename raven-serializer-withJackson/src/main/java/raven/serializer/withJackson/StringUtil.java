@@ -5,7 +5,7 @@ import raven.serializer.withJackson.annotations.JsonPropertyFormatType;
 /**
  *
  */
-class StringUtil {
+public class StringUtil {
 
     /**
      * 命名格式化
@@ -14,7 +14,7 @@ class StringUtil {
      * @param jsonPropertyFormat
      * @return
      */
-    protected static String namingFormat(String value, JsonPropertyFormatType jsonPropertyFormat) {
+    public static String namingFormat(String value, JsonPropertyFormatType jsonPropertyFormat) {
 
         char first = value.charAt(0);
 

@@ -69,6 +69,11 @@ public class MsgpackSerializerTest {
         Assert.assertEquals(user.getName(), user2.getName());
         Assert.assertEquals(user.getTime().toString(), user2.getTime().toString());
         inputStream.close();
+
+        User2 temp = serializer.deserialize(User2.class, data);
+        Assert.assertEquals(temp.getId(), user.getId());
+        Assert.assertEquals(temp.getName(), user.getName());
+
     }
 
     /*@Test
