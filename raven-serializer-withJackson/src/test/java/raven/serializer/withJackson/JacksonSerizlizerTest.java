@@ -1,11 +1,13 @@
 package raven.serializer.withJackson;
 
+import com.fasterxml.jackson.databind.ser.std.EnumSerializer;
 import javafx.util.converter.DateStringConverter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import raven.serializer.DataSerializer;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.Consumer;
 
 public class JacksonSerizlizerTest {
 
@@ -108,8 +111,31 @@ public class JacksonSerizlizerTest {
         System.out.println(res);
 
         //res = "{\"colorType\":\"C\"}";
-        Paper paper2 = serializer.deserialize(Paper.class, data);
-        Assert.assertEquals(paper.getColorType(), paper2.getColorType());
+        Paper paperDes = serializer.deserialize(Paper.class, data);
+        Assert.assertEquals(paper.getColorType(), paperDes.getColorType());
+
+        String json = "{\"ColorType\":\"2\"}";   //ColorType:B
+        data = json.getBytes("UTF-8");
+        paper = serializer.deserialize(Paper.class, data);
+        Assert.assertEquals(paper.getColorType(), ColorType.B);
+        System.out.println(paper.getColorType());
+
+        String colorType2Str = new String(serializer.serialize(ColorType2.B));
+        System.out.println("ColorType2: " + colorType2Str);
+        Assert.assertEquals(colorType2Str, Integer.toString(ColorType2.B.getValue()));
+        ColorType2 colorType2 = serializer.deserialize(ColorType2.class, Integer.toString(ColorType2.B.getValue()).getBytes());
+        Assert.assertEquals(colorType2, ColorType2.B);
+
+        json = "{\"desc\":\"abc\"}";   //ColorType:B
+        data = json.getBytes("UTF-8");
+        Paper2 paper2 = serializer.deserialize(Paper2.class, data);
+        Assert.assertEquals(paper2.getDesc(), "abc");
+
+        paper2 = new Paper2();
+        paper2.setColorType2(ColorType2.B);
+        json = new String(serializer.serialize(paper2), "UTF-8");
+        System.out.println("Paper2: " + json);
+
 
     }
 

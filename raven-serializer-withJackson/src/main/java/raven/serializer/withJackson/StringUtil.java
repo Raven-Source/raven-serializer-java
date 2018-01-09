@@ -1,6 +1,6 @@
 package raven.serializer.withJackson;
 
-import raven.serializer.withJackson.annotations.JsonPropertyFormatType;
+import raven.serializer.withJackson.format.JsonPropertyFormatType;
 
 /**
  *

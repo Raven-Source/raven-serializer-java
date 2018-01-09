@@ -5,6 +5,7 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
+@Inherited
 public @interface DataMember {
 
     /**
@@ -19,12 +20,12 @@ public @interface DataMember {
      *
      * @return
      */
-    int Order() default -1;
+    int order() default -1;
 
     /**
      * 该值指示序列化引擎该成员在读取或反序列化时必须存在
      *
      * @return
      */
-    boolean IsRequired() default true;
+    boolean required() default false;
 }

@@ -1,10 +1,9 @@
 package raven.serializer.withJackson;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import raven.serializer.withJackson.annotations.JsonPropertyFormat;
-import raven.serializer.withJackson.annotations.JsonPropertyFormatType;
+import raven.serializer.withJackson.format.JsonPropertyFormat;
+import raven.serializer.withJackson.format.JsonPropertyFormatType;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 

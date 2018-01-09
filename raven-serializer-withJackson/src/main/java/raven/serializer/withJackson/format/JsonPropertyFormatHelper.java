@@ -1,4 +1,4 @@
-package raven.serializer.withJackson.annotations;
+package raven.serializer.withJackson.format;
 
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;

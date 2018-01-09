@@ -1,18 +1,20 @@
 package raven.serializer.withJackson;
 
+import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
+import com.fasterxml.jackson.databind.deser.DeserializerFactory;
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import raven.serializer.BasicDataSerializer;
 import raven.serializer.DataSerializer;
 import raven.serializer.StringDataSerializer;
 import raven.serializer.util.Args;
-import raven.serializer.withJackson.annotations.JsonPropertyFormat;
-import raven.serializer.withJackson.annotations.JsonPropertyFormatHelper;
-import raven.serializer.withJackson.annotations.JsonPropertyFormatType;
+import raven.serializer.withJackson.format.JsonPropertyFormatHelper;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -20,16 +22,46 @@ import java.text.SimpleDateFormat;
 public class JacksonSerializer extends BasicDataSerializer
         implements DataSerializer, StringDataSerializer {
 
+    private String dataFormatString;
     private ObjectMapper mapper;
+
+    /**
+     * 设置dataFormatString
+     *
+     * @param formatString
+     */
+    public void setDateFormatString(String formatString) {
+        this.dataFormatString = formatString;
+        mapper.setDateFormat(new SimpleDateFormat(dataFormatString));
+    }
+
+    /**
+     * 获取dataFormatString
+     *
+     * @return
+     */
+    public String getDataFormatString() {
+        return dataFormatString;
+    }
 
     /**
      *
      */
     public JacksonSerializer() {
 
+
+        dataFormatString = "yyyy-MM-dd HH:mm:ss";
         mapper = new ObjectMapper();
-        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        mapper.setDateFormat(new SimpleDateFormat(dataFormatString));
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        /*mapper.setSerializerFactory(mapper.getSerializerFactory().withSerializerModifier(new ModifySerializer()));
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Enum.class, new ValueEnumTypeDeserializer());
+        module.addSerializer(Enum.class, new ValueEnumTypeSerializer());
+
+        mapper.registerModules(module);*/
+
         mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
 
             // 反序列化时调用
@@ -51,6 +83,7 @@ public class JacksonSerializer extends BasicDataSerializer
                 return JsonPropertyFormatHelper.format(field, defaultName);
             }
         });
+
 
     }
 
