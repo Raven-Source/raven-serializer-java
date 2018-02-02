@@ -3,9 +3,7 @@ package raven.serializer.withJackson;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.EnumSerializer;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import raven.serializer.ValueEnumType;
+import raven.data.entity.ValueEnum;
 
 import java.io.IOException;
 
@@ -15,10 +13,10 @@ import java.io.IOException;
  * created by 2018/1/9 23:00:00
  */
 @Deprecated
-public class ValueEnumTypeSerializer extends JsonSerializer<ValueEnumType> {
+public class ValueEnumTypeSerializer extends JsonSerializer<ValueEnum> {
 
     @Override
-    public void serialize(ValueEnumType value, JsonGenerator generator, SerializerProvider provider) throws IOException {
+    public void serialize(ValueEnum value, JsonGenerator generator, SerializerProvider provider) throws IOException {
         generator.writeNumber(value.getValue());
 
     }

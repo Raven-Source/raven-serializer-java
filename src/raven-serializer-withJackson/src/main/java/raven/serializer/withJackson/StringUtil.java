@@ -1,6 +1,6 @@
 package raven.serializer.withJackson;
 
-import raven.serializer.withJackson.format.JsonPropertyFormatType;
+import raven.data.entity.annotation.PropertyFormatType;
 
 /**
  * String工具类
@@ -15,20 +15,20 @@ public class StringUtil {
      * 命名格式化
      *
      * @param value
-     * @param jsonPropertyFormat
+     * @param propertyFormatType
      * @return
      */
-    public static String namingFormat(String value, JsonPropertyFormatType jsonPropertyFormat) {
+    public static String namingFormat(String value, PropertyFormatType propertyFormatType) {
 
         char first = value.charAt(0);
 
-        if (jsonPropertyFormat == JsonPropertyFormatType.PascalCase && first >= 97 && first <= 122) {
+        if (propertyFormatType == PropertyFormatType.PascalCase && first >= 97 && first <= 122) {
 
-            return convertFirstChar(value, jsonPropertyFormat);
+            return convertFirstChar(value, propertyFormatType);
 
-        } else if (jsonPropertyFormat == JsonPropertyFormatType.CamelCase && first >= 65 && first <= 90) {
+        } else if (propertyFormatType == PropertyFormatType.CamelCase && first >= 65 && first <= 90) {
 
-            return convertFirstChar(value, jsonPropertyFormat);
+            return convertFirstChar(value, propertyFormatType);
         }
 
         return value;
@@ -36,12 +36,12 @@ public class StringUtil {
 
     /**
      * @param value
-     * @param jsonPropertyFormat
+     * @param propertyFormatType
      * @return
      */
-    private static String convertFirstChar(String value, JsonPropertyFormatType jsonPropertyFormat) {
+    private static String convertFirstChar(String value, PropertyFormatType propertyFormatType) {
         char[] _temp = value.toCharArray();
-        if (jsonPropertyFormat == JsonPropertyFormatType.PascalCase) {
+        if (propertyFormatType == PropertyFormatType.PascalCase) {
             _temp[0] = Character.toUpperCase(_temp[0]);
         } else {
             _temp[0] = Character.toLowerCase(_temp[0]);

@@ -14,6 +14,15 @@
     <version>${parent.version}</version>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.raven.data.entity</groupId>
+            <artifactId>org.raven.data.entity</artifactId>
+            <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../libs/raven-data-entity-0.0.1.jar</systemPath>
+        </dependency>
+
         <dependency>
             <groupId>org.raven.serializer</groupId>
             <artifactId>raven-serializer</artifactId>

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import raven.serializer.ValueEnumType;
+import raven.data.entity.ValueEnum;
 
 import java.io.IOException;
 
@@ -14,12 +14,12 @@ import java.io.IOException;
  * created by 2018/1/9 23:00:00
  */
 @Deprecated
-public class ValueEnumTypeDeserializer<T extends ValueEnumType> extends JsonDeserializer<T> {
+public class ValueEnumTypeDeserializer<T extends ValueEnum> extends JsonDeserializer<T> {
 
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         int value = p.getIntValue();
-        //return (T) ValueEnumTypes.valueOf(_valueClass, value);
+        //return (T) ValueEnumHelper.valueOf(_valueClass, value);
         return null;
     }
 

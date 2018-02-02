@@ -3,12 +3,12 @@ package raven.serializer.withJackson;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Getter;
 import lombok.Setter;
-import raven.serializer.serialization.DataMember;
-import raven.serializer.withJackson.format.JsonPropertyFormat;
-import raven.serializer.withJackson.format.JsonPropertyFormatType;
+import raven.data.entity.annotation.Property;
+import raven.data.entity.annotation.PropertyFormat;
+import raven.data.entity.annotation.PropertyFormatType;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE)
-@JsonPropertyFormat(JsonPropertyFormatType.PascalCase)
+@PropertyFormat(value = PropertyFormatType.PascalCase)
 public class Paper {
 
     @Getter
@@ -17,7 +17,7 @@ public class Paper {
 
     @Getter
     @Setter
-    @DataMember(name = "tlt")
+    @Property(name = "tlt")
     private String title;
 
     @Getter

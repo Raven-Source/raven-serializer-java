@@ -1,14 +1,14 @@
 package raven.serializer.withJackson;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import raven.serializer.withJackson.format.JsonPropertyFormat;
-import raven.serializer.withJackson.format.JsonPropertyFormatType;
+import raven.data.entity.annotation.PropertyFormat;
+import raven.data.entity.annotation.PropertyFormatType;
 
 import java.util.Date;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE)
-@JsonPropertyFormat(value = JsonPropertyFormatType.PascalCase)
+@PropertyFormat(PropertyFormatType.PascalCase)
 public class User {
     private int id;
     private String name;

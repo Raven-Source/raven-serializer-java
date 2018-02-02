@@ -3,15 +3,12 @@ package raven.serializer.withJackson;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import raven.serializer.ValueEnumType;
-import raven.serializer.ValueEnumTypes;
+import raven.data.entity.ValueEnum;
 
 @JsonFormat(shape = JsonFormat.Shape.NUMBER)
 //@JsonDeserialize(using = ValueEnumTypeDeserializer.class)
 //@JsonSerialize(using = ValueEnumTypeSerializer.class)
-public enum ColorType2 implements ValueEnumType {
+public enum ColorType2 implements ValueEnum {
     A(1),
     D(4),
     C(3),

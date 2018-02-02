@@ -2,7 +2,8 @@ package raven.serializer.withJackson.format;
 
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
-import raven.serializer.serialization.DataMember;
+import raven.data.entity.annotation.Property;
+import raven.data.entity.annotation.PropertyFormat;
 import raven.serializer.withJackson.StringUtil;
 
 /**
@@ -20,17 +21,17 @@ public class JsonPropertyFormatHelper {
      */
     public static String format(AnnotatedMethod method, String defaultName) {
 
-        DataMember dataMember = method.getAnnotation(DataMember.class);
+        Property dataMember = method.getAnnotation(Property.class);
         if (dataMember != null) {
             return dataMember.name();
         }
 
-        JsonPropertyFormat jsonPropertyFormat = method.getAnnotation(JsonPropertyFormat.class);
-        if (jsonPropertyFormat == null) {
-            jsonPropertyFormat = method.getDeclaringClass().getAnnotation(JsonPropertyFormat.class);
+        PropertyFormat propertyFormat = method.getAnnotation(PropertyFormat.class);
+        if (propertyFormat == null) {
+            propertyFormat = method.getDeclaringClass().getAnnotation(PropertyFormat.class);
         }
-        if (jsonPropertyFormat != null) {
-            return StringUtil.namingFormat(defaultName, jsonPropertyFormat.value());
+        if (propertyFormat != null) {
+            return StringUtil.namingFormat(defaultName, propertyFormat.value());
         }
         return defaultName;
 
@@ -44,17 +45,17 @@ public class JsonPropertyFormatHelper {
      */
     public static String format(AnnotatedField field, String defaultName) {
 
-        DataMember dataMember = field.getAnnotation(DataMember.class);
+        Property dataMember = field.getAnnotation(Property.class);
         if (dataMember != null) {
             return dataMember.name();
         }
 
-        JsonPropertyFormat jsonPropertyFormat = field.getAnnotation(JsonPropertyFormat.class);
-        if (jsonPropertyFormat == null) {
-            jsonPropertyFormat = field.getDeclaringClass().getAnnotation(JsonPropertyFormat.class);
+        PropertyFormat propertyFormat = field.getAnnotation(PropertyFormat.class);
+        if (propertyFormat == null) {
+            propertyFormat = field.getDeclaringClass().getAnnotation(PropertyFormat.class);
         }
-        if (jsonPropertyFormat != null) {
-            return StringUtil.namingFormat(defaultName, jsonPropertyFormat.value());
+        if (propertyFormat != null) {
+            return StringUtil.namingFormat(defaultName, propertyFormat.value());
         }
         return defaultName;
 

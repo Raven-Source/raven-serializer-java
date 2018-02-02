@@ -1,8 +1,10 @@
 package raven.serializer.withJackson;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+@JsonFormat(shape = JsonFormat.Shape.NUMBER)
 public enum ColorType {
 
     A(1),
