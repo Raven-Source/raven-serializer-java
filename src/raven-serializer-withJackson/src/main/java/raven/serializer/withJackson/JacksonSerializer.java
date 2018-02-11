@@ -1,16 +1,10 @@
 package raven.serializer.withJackson;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.cfg.MapperConfig;
-import com.fasterxml.jackson.databind.introspect.AnnotatedField;
-import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import raven.serializer.BasicDataSerializer;
 import raven.serializer.DataSerializer;
 import raven.serializer.StringDataSerializer;
 import raven.serializer.util.Args;
-import raven.serializer.withJackson.format.JsonPropertyFormatHelper;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -25,69 +19,52 @@ import java.text.SimpleDateFormat;
 public class JacksonSerializer extends BasicDataSerializer
         implements DataSerializer, StringDataSerializer {
 
-    private String dataFormatString;
     private ObjectMapper mapper;
+    private SerializerSetting _setting;
+
+//    /**
+//     * 设置dataFormatString
+//     *
+//     * @param formatString
+//     */
+//    public void setDateFormatString(String formatString) {
+//        this.dataFormatString = formatString;
+//        mapper.setDateFormat(new SimpleDateFormat(dataFormatString));
+//    }
+//
+//    /**
+//     * 获取dataFormatString
+//     *
+//     * @return
+//     */
+//    public String getDataFormatString() {
+//        return dataFormatString;
+//    }
 
     /**
-     * 设置dataFormatString
-     *
-     * @param formatString
-     */
-    public void setDateFormatString(String formatString) {
-        this.dataFormatString = formatString;
-        mapper.setDateFormat(new SimpleDateFormat(dataFormatString));
-    }
-
-    /**
-     * 获取dataFormatString
-     *
-     * @return
-     */
-    public String getDataFormatString() {
-        return dataFormatString;
-    }
-
-    /**
-     *
+     * 构造函数
      */
     public JacksonSerializer() {
 
+        _setting = SerializerSetting.getDefault();
 
-        dataFormatString = "yyyy-MM-dd HH:mm:ss";
-        mapper = new ObjectMapper();
-        mapper.setDateFormat(new SimpleDateFormat(dataFormatString));
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper = ObjectMapperConfig.getObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat(_setting.getDateFormatString()));
+        mapper.setTimeZone(_setting.getTimeZone());
+    }
 
-        /*mapper.setSerializerFactory(mapper.getSerializerFactory().withSerializerModifier(new ModifySerializer()));
-        SimpleModule module = new SimpleModule();
-        module.addDeserializer(Enum.class, new ValueEnumTypeDeserializer());
-        module.addSerializer(Enum.class, new ValueEnumTypeSerializer());
+    /**
+     * 构造函数
+     *
+     * @param setting
+     */
+    public JacksonSerializer(SerializerSetting setting) {
 
-        mapper.registerModules(module);*/
+        _setting = setting != null ? setting : SerializerSetting.getDefault();
 
-        mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
-
-            // 反序列化时调用
-            @Override
-            public String nameForSetterMethod(MapperConfig<?> config,
-                                              AnnotatedMethod method, String defaultName) {
-                return JsonPropertyFormatHelper.format(method, defaultName);
-            }
-
-            // 序列化时调用
-            @Override
-            public String nameForGetterMethod(MapperConfig<?> config,
-                                              AnnotatedMethod method, String defaultName) {
-                return JsonPropertyFormatHelper.format(method, defaultName);
-            }
-
-            @Override
-            public String nameForField(MapperConfig<?> config, AnnotatedField field, String defaultName) {
-                return JsonPropertyFormatHelper.format(field, defaultName);
-            }
-        });
-
-
+        mapper = ObjectMapperConfig.getObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat(_setting.getDateFormatString()));
+        mapper.setTimeZone(_setting.getTimeZone());
     }
 
     /**
