@@ -34,7 +34,7 @@ public class PerformanceTest {
         user.setName("ggsgshahsahsdha");
         mall.setUser(user);
 
-        DataSerializer serializer = SerializerFactory.getDataSerializer(SerializerType.Jackson, new Object[]{SerializerSetting.getDefault()});
+        DataSerializer serializer = SerializerFactory.create(SerializerType.Jackson, new Object[]{SerializerSetting.getDefault()});
         byte[] data = serializer.serialize(mall);
         String jsonStr = new String(data, Charset.forName("UTF-8"));
 

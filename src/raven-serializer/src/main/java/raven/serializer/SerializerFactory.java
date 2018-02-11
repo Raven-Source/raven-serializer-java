@@ -24,25 +24,13 @@ public class SerializerFactory {
         }
     };
 
-
-    /**
-     * @param serializerType
-     * @return
-     * @throws Exception
-     */
-    public static DataSerializer getDataSerializer(SerializerType serializerType)
-            throws Exception {
-        return getDataSerializer(serializerType, null);
-    }
-
     /**
      * @param serializerType
      * @param args
      * @return
      * @throws Exception
      */
-    public static DataSerializer getDataSerializer(SerializerType serializerType, Object[] args)
-            throws Exception {
+    private static DataSerializer getDataSerializer(SerializerType serializerType, Object[] args) {
 
         String key = getKey(serializerType, args);
         if (_serializerDict.containsKey(key)) {
@@ -51,29 +39,33 @@ public class SerializerFactory {
         } else {
             String[] clazzName = _clazzNameDict.get(serializerType);
 
-            Class clazz = Class.forName(String.join(".", clazzName[0], clazzName[1]));
-            if (args == null || args.length == 0) {
-                return (DataSerializer) clazz.newInstance();
-            } else {
-                for (Constructor constructor : clazz.getConstructors()) {
+            try {
+                Class clazz = Class.forName(String.join(".", clazzName[0], clazzName[1]));
+                if (args == null || args.length == 0) {
+                    return (DataSerializer) clazz.newInstance();
+                } else {
+                    for (Constructor constructor : clazz.getConstructors()) {
 
-                    int count = constructor.getParameterCount();
-                    if (count != args.length) continue;
+                        int count = constructor.getParameterCount();
+                        if (count != args.length) continue;
 
-                    Class<?>[] paramsTypes = constructor.getParameterTypes();
-                    boolean applyTo = true;
-                    for (int i = 0; i < args.length; i++) {
-                        if (!args[i].getClass().isAssignableFrom(paramsTypes[i])) {
-                            applyTo = false;
-                            break;
+                        Class<?>[] paramsTypes = constructor.getParameterTypes();
+                        boolean applyTo = true;
+                        for (int i = 0; i < args.length; i++) {
+                            if (!args[i].getClass().isAssignableFrom(paramsTypes[i])) {
+                                applyTo = false;
+                                break;
+                            }
+                        }
+
+                        if (applyTo) {
+                            return (DataSerializer) constructor.newInstance(args);
                         }
                     }
 
-                    if (applyTo) {
-                        return (DataSerializer) constructor.newInstance(args);
-                    }
+                    return null;
                 }
-
+            } catch (Exception ex) {
                 return null;
             }
         }
@@ -96,6 +88,51 @@ public class SerializerFactory {
             argsStr = joiner.toString();
         }
         return MessageFormat.format("{0}:{1}", _clazzNameDict.get(serializerType)[1], argsStr);
+    }
+
+    /**
+     * 创建类型
+     *
+     * @param serializerType
+     * @return
+     */
+    public static DataSerializer create(SerializerType serializerType) {
+        return create(serializerType, null);
+    }
+
+    /**
+     * 创建类型
+     *
+     * @param serializerType
+     * @param args
+     * @return
+     */
+    public static DataSerializer create(SerializerType serializerType, Object[] args) {
+        DataSerializer serializer = getDataSerializer(serializerType, args);
+        //IDataSerializer serializer = (IDataSerializer)Activator.CreateInstance(type, new object[] { });
+        return serializer;
+    }
+
+    /**
+     * 创建类型
+     *
+     * @param serializerType
+     * @return
+     */
+    public static DataSerializer create(String serializerType) {
+        return create(serializerType, null);
+    }
+
+    /**
+     * 创建类型
+     *
+     * @param serializerTypeStr
+     * @param args
+     * @return
+     */
+    public static DataSerializer create(String serializerTypeStr, Object[] args) {
+        SerializerType serializerType = Enum.valueOf(SerializerType.class, serializerTypeStr);
+        return create(serializerType, args);
     }
 
 }
