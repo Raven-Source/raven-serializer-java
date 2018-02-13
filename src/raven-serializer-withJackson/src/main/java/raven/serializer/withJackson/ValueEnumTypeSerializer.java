@@ -18,7 +18,6 @@ public class ValueEnumTypeSerializer extends JsonSerializer<ValueEnum> {
     @Override
     public void serialize(ValueEnum value, JsonGenerator generator, SerializerProvider provider) throws IOException {
         generator.writeNumber(value.getValue());
-
     }
 
 }

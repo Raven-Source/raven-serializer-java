@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import raven.data.entity.ValueEnum;
 
-@JsonFormat(shape = JsonFormat.Shape.NUMBER)
+//@JsonFormat(shape = JsonFormat.Shape.NUMBER)
 //@JsonDeserialize(using = ValueEnumTypeDeserializer.class)
 //@JsonSerialize(using = ValueEnumTypeSerializer.class)
 public enum ColorType2 implements ValueEnum {
@@ -20,12 +20,12 @@ public enum ColorType2 implements ValueEnum {
         this.val = val;
     }
 
-    @JsonValue
+    //@JsonValue
     public int getValue() {
         return val;
     }
 
-    @JsonCreator
+    //@JsonCreator
     public static ColorType2 create(int value) {
         for (ColorType2 type : ColorType2.values()) {
             if (type.getValue() == value) {

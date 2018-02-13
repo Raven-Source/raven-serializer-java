@@ -102,27 +102,25 @@ public class JacksonSerizlizerTest {
     public void enumTest() throws Exception {
 
         Paper paper = new Paper();
-        paper.setColorType(ColorType.C);
+        paper.setColor(ColorType.C);
         paper.setTitle("人民日报");
-
 
         DataSerializer serializer = new JacksonSerializer();
         byte[] data = serializer.serialize(paper);
         String res = new String(data, "UTF-8");
         System.out.println(res);
 
-        //res = "{\"colorType\":\"C\"}";
         Paper paperDes = serializer.deserialize(Paper.class, data);
-        Assert.assertEquals(paper.getColorType(), paperDes.getColorType());
+        Assert.assertEquals(paper.getColor(), paperDes.getColor());
 
-        String json = "{\"ColorType\":\"2\"}";   //ColorType:B
+        String json = "{\"Color\":\"2\"}";   //ColorType:B
         data = json.getBytes("UTF-8");
         paper = serializer.deserialize(Paper.class, data);
-        Assert.assertEquals(paper.getColorType(), ColorType.B);
-        System.out.println(paper.getColorType());
+        Assert.assertEquals(paper.getColor(), ColorType.B);
+        System.out.println(paper.getColor());
 
         String colorType2Str = new String(serializer.serialize(ColorType2.B));
-        System.out.println("ColorType2: " + colorType2Str);
+        System.out.println("Color2: " + colorType2Str);
         Assert.assertEquals(colorType2Str, Integer.toString(ColorType2.B.getValue()));
         ColorType2 colorType2 = serializer.deserialize(ColorType2.class, Integer.toString(ColorType2.B.getValue()).getBytes());
         Assert.assertEquals(colorType2, ColorType2.B);
@@ -133,7 +131,7 @@ public class JacksonSerizlizerTest {
         Assert.assertEquals(paper2.getDesc(), "abc");
 
         paper2 = new Paper2();
-        paper2.setColorType2(ColorType2.B);
+        paper2.setColor2(ColorType2.B);
         json = new String(serializer.serialize(paper2), "UTF-8");
         System.out.println("Paper2: " + json);
 

@@ -13,7 +13,7 @@ public class Paper {
 
     @Getter
     @Setter
-    private ColorType colorType;
+    private ColorType color;
 
     @Getter
     @Setter

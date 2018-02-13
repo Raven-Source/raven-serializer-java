@@ -102,5 +102,29 @@ public class MsgpackSerializerTest {
 
     }*/
 
+    @Test
+    public void enumTest() throws Exception {
+
+        MsgpackSerializer serializer = new MsgpackSerializer();
+
+        byte[] enumdata = serializer.serialize(ColorType.C);
+        ColorType c = serializer.deserialize(ColorType.class, enumdata);
+        Assert.assertEquals(c, ColorType.C);
+
+        User2 user2 = new User2();
+        user2.setId(123);
+        user2.setName("好好");
+        user2.setColor(ColorType.B);
+
+        byte[] data = serializer.serialize(user2);
+        String str = new String(data, Charset.forName("UTF-8"));
+        System.out.println(str);
+
+        User2 user22 = serializer.deserialize(User2.class, data);
+        System.out.println(user22);
+
+        Assert.assertEquals(user2, user22);
+
+    }
 
 }

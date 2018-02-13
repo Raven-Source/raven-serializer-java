@@ -5,6 +5,7 @@ import com.sun.nio.sctp.MessageInfo;
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.StringJoiner;
 
@@ -16,7 +17,7 @@ import java.util.StringJoiner;
 public class SerializerFactory {
 
     private static HashMap<String, DataSerializer> _serializerDict = new HashMap<String, DataSerializer>();
-    private static HashMap<SerializerType, String[]> _clazzNameDict = new HashMap<SerializerType, String[]>() {
+    private static EnumMap<SerializerType, String[]> _clazzNameDict = new EnumMap<SerializerType, String[]>(SerializerType.class) {
         {
             put(SerializerType.Jackson, new String[]{"raven.serializer.withJackson", "JacksonSerializer"});
             put(SerializerType.Protobuf, new String[]{"raven.serializer.withProtobuf", "ProtobufSerializer"});

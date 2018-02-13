@@ -19,6 +19,7 @@ public class ValueEnumTypeDeserializer<T extends ValueEnum> extends JsonDeserial
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         int value = p.getIntValue();
+        Class<?> clazz = ctxt.getActiveView();
         //return (T) ValueEnumHelper.valueOf(_valueClass, value);
         return null;
     }

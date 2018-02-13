@@ -19,6 +19,6 @@ public class Paper2 extends Paper {
 
     @Getter
     @Setter
-    private ColorType2 colorType2;
+    private ColorType2 color2;
 
 }

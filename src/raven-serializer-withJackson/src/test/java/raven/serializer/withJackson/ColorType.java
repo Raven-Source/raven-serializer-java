@@ -3,9 +3,11 @@ package raven.serializer.withJackson;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
+import raven.data.entity.ValueEnum;
 
-@JsonFormat(shape = JsonFormat.Shape.NUMBER)
-public enum ColorType {
+//@JsonFormat(shape = JsonFormat.Shape.NUMBER)
+//@JsonDeserialize(using = ValueEnumTypeDeserializer.class)
+public enum ColorType  implements ValueEnum {
 
     A(1),
     B(2),
@@ -14,15 +16,16 @@ public enum ColorType {
 
     private int val;
 
-    @JsonValue
-    public int getVal() {
+    //@JsonValue
+    @Override
+    public int getValue() {
         return val;
     }
 
-    @JsonCreator
+    //@JsonCreator
     public ColorType getItem(int code) {
         for (ColorType item : values()) {
-            if (item.getVal() == code) {
+            if (item.getValue() == code) {
                 return item;
             }
         }
