@@ -25,7 +25,7 @@ public enum ColorType2 implements ValueEnum {
         return val;
     }
 
-    //@JsonCreator
+    /*@JsonCreator
     public static ColorType2 create(int value) {
         for (ColorType2 type : ColorType2.values()) {
             if (type.getValue() == value) {
@@ -33,5 +33,5 @@ public enum ColorType2 implements ValueEnum {
             }
         }
         return null;
-    }
+    }*/
 }

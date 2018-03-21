@@ -24,7 +24,9 @@ public class User {
     @Index(1)
     private String name;
 
+    @Index(3)
     private Date time;
 
+    @Index(4)
     private List<Integer> list;
 }

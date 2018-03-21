@@ -12,9 +12,17 @@ import java.io.IOException;
  * @since JDK1.8
  * created by 2018/1/9 23:00:00
  */
-@Deprecated
-public class ValueEnumTypeSerializer extends JsonSerializer<ValueEnum> {
+public class ValueEnumSerializer extends JsonSerializer<ValueEnum> {
 
+
+
+    /**
+     *
+     * @param value
+     * @param generator
+     * @param provider
+     * @throws IOException
+     */
     @Override
     public void serialize(ValueEnum value, JsonGenerator generator, SerializerProvider provider) throws IOException {
         generator.writeNumber(value.getValue());

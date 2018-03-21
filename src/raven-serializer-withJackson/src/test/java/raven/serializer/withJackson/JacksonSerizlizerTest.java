@@ -125,7 +125,7 @@ public class JacksonSerizlizerTest {
         ColorType2 colorType2 = serializer.deserialize(ColorType2.class, Integer.toString(ColorType2.B.getValue()).getBytes());
         Assert.assertEquals(colorType2, ColorType2.B);
 
-        json = "{\"desc\":\"abc\"}";   //ColorType:B
+        json = "{\"desc\":\"abc\", \"Color\":2}";   //ColorType:B
         data = json.getBytes("UTF-8");
         Paper2 paper2 = serializer.deserialize(Paper2.class, data);
         Assert.assertEquals(paper2.getDesc(), "abc");

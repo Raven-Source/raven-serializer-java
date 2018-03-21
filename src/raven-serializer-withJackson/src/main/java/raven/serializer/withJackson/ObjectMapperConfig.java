@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
+import com.fasterxml.jackson.databind.deser.BeanDeserializerFactory;
+import com.fasterxml.jackson.databind.deser.DefaultDeserializationContext;
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -13,22 +15,31 @@ import raven.serializer.withJackson.format.JsonPropertyFormatHelper;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
+/**
+ * ObjectMapper配置类
+ *
+ * @author yi.liang
+ * @since JDK1.8
+ * created by 2018/3/20 14:00:00
+ */
 public class ObjectMapperConfig {
 
     public static final TimeZone defaultTimeZone = TimeZone.getTimeZone("GMT+8");
 
     public static ObjectMapper getObjectMapper() {
 
-        ObjectMapper mapper = new ObjectMapper();
+        DefaultDeserializationContext deserializationContext = new DefaultDeserializationContext.Impl(CustomBeanDeserializerFactory.instance);
+
+        ObjectMapper mapper = new ObjectMapper(null, null, deserializationContext);
+        //mapper.setSerializerFactory(mapper.getSerializerFactory().withSerializerModifier(new ModifySerializer()));
+
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.setTimeZone(defaultTimeZone);
 
-        /*//mapper.setSerializerFactory(mapper.getSerializerFactory().withSerializerModifier(new ModifySerializer()));
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(Enum.class, new ValueEnumTypeDeserializer());
-        module.addSerializer(ValueEnum.class, new ValueEnumTypeSerializer());
+        module.addSerializer(ValueEnum.class, new ValueEnumSerializer());
 
-        mapper.registerModules(module);*/
+        mapper.registerModules(module);
 
         mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
 

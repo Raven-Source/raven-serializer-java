@@ -8,6 +8,7 @@ import org.msgpack.annotation.Index;
 import org.msgpack.annotation.Message;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +23,10 @@ public class User2 {
     @Index(1)
     private String name;
 
-    @Index(3)
+    @Index(5)
     private ColorType color;
+
+    @Index(6)
+    private List<ColorType> colorList;
 
 }

@@ -4,7 +4,7 @@ import org.msgpack.template.Template;
 import org.msgpack.template.TemplateRegistry;
 import raven.data.entity.ValueEnum;
 
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.HashSet;
 
 /**
@@ -33,7 +33,13 @@ public class CustomTemplateRegistry extends TemplateRegistry {
     @Override
     public synchronized Template lookup(Type targetType) {
 
-        if (!typeCache.contains(targetType) && Enum.class.isAssignableFrom((Class<?>) targetType)) {
+        if (targetType instanceof ParameterizedType
+                || targetType instanceof GenericArrayType
+                || targetType instanceof WildcardType
+                || targetType instanceof TypeVariable
+                || typeCache.contains(targetType)
+                || !Enum.class.isAssignableFrom((Class<?>) targetType)) {
+        } else {
             super.register(targetType, new EnumTemplate((Class<?>) targetType));
             typeCache.add(targetType);
         }

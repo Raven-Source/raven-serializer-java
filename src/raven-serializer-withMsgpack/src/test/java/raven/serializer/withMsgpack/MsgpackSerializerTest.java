@@ -43,9 +43,6 @@ public class MsgpackSerializerTest {
         String json = new String(data, Charset.defaultCharset());
 
         System.out.println(json);
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         Assert.assertNotEquals(json, null);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -54,7 +51,7 @@ public class MsgpackSerializerTest {
         json = outputStream.toString("UTF-8");
         outputStream.close();
         Assert.assertNotEquals(json, null);
-
+        System.out.println(json);
 
         User user2 = serializer.deserialize(User.class, data);
         Assert.assertEquals(user.getName(), user2.getName());
@@ -70,10 +67,33 @@ public class MsgpackSerializerTest {
         Assert.assertEquals(user.getTime().toString(), user2.getTime().toString());
         inputStream.close();
 
+        //实体更新，需要保证Index一致，如User和User2
         User2 temp = serializer.deserialize(User2.class, data);
         Assert.assertEquals(temp.getId(), user.getId());
         Assert.assertEquals(temp.getName(), user.getName());
 
+        temp.setColorList(new ArrayList<ColorType>() {
+            {
+                add(ColorType.C);
+            }
+
+            {
+                add(ColorType.A);
+            }
+
+            {
+                add(ColorType.D);
+            }
+        });
+
+        data = serializer.serialize(temp);
+        User2 temp2 = serializer.deserialize(User2.class, data);
+        System.out.println(temp2);
+
+        Assert.assertEquals(temp.getId(), temp2.getId());
+        Assert.assertEquals(temp.getName(), temp2.getName());
+        Assert.assertEquals(temp.getColor(), temp2.getColor());
+        Assert.assertEquals(temp.getColorList(), temp2.getColorList());
     }
 
     /*@Test
