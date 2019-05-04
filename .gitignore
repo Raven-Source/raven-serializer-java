@@ -1,33 +1,26 @@
-# Eclipse project files
-.project
-.classpath
-.settings
+target/
+!.mvn/wrapper/maven-wrapper.jar
 
-# IntelliJ IDEA project files and directories
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+.mvn
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
 *.ipr
-*.iws
-.idea/
-*.idea/
 
-# Geany project file
-.geany
-
-# KDevelop project file and directory
-.kdev4/
-*.kdev4
-
-# Build targets
-target
-*target
-
-# Report directories
-/reports
-*/reports
-
-# Mac-specific directory that no other operating system needs.
-.DS_Store
-
-# JVM crash logs
-hs_err_pid*.log
-
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
