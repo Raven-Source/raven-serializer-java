@@ -8,7 +8,7 @@ import java.nio.charset.Charset;
 
 /**
  * @author yi.liang
- * @date 2018.9.25
+ * date 2018.9.25
  * @since JDK1.8
  */
 public abstract class BasicSerializer {

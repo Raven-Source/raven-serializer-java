@@ -4,29 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>raven-serializer</artifactId>
-        <groupId>org.raven.serializer</groupId>
+        <groupId>io.github.raven-source</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.raven.serializer</groupId>
     <artifactId>raven-serializer-withJackson</artifactId>
-    <version>${parent.version}</version>
+    <version>${raven-serializer-withJackson.version}</version>
+    <packaging>jar</packaging>
 
     <dependencies>
 
         <dependency>
-            <groupId>org.raven</groupId>
+            <groupId>io.github.raven-source</groupId>
             <artifactId>raven-commons-data</artifactId>
             <version>${raven-commons-data.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.raven.serializer</groupId>
+            <groupId>io.github.raven-source</groupId>
             <artifactId>raven-serializer-core</artifactId>
             <version>${raven-serializer-core.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>

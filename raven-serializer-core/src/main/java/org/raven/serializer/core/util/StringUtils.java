@@ -2,7 +2,7 @@ package org.raven.serializer.core.util;
 
 /**
  * @author yi.liang
- * @date 2018.9.25
+ * date 2018.9.25
  * @since JDK1.8
  */
 public final class StringUtils {

@@ -5,9 +5,13 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.msgpack.annotation.Message;
 
 @Getter
 @Setter
+@ToString
+@Message
 public class User {
 
     private int id;

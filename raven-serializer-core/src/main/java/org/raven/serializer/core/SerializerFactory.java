@@ -9,7 +9,7 @@ import java.util.StringJoiner;
 
 /**
  * @author yi.liang
- * @date 2018.9.25
+ * date 2018.9.25
  * @since JDK1.8
  */
 public class SerializerFactory {
