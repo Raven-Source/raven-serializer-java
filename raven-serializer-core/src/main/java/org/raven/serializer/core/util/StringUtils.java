@@ -47,4 +47,16 @@ public final class StringUtils {
         return false;
     }
 
+
+    public static int indexOf(String str, char searchChar) {
+        return isEmpty(str) ? -1 : str.indexOf(searchChar);
+    }
+
+    public static int indexOf(String str, char searchChar, int startPos) {
+        return isEmpty(str) ? -1 : str.indexOf(searchChar, startPos);
+    }
+
+    public static int indexOf(String str, String searchStr) {
+        return str != null && searchStr != null ? str.indexOf(searchStr) : -1;
+    }
 }

@@ -22,8 +22,8 @@
         <encoding>UTF-8</encoding>
 
         <raven-commons-data.version>1.0.2</raven-commons-data.version>
-        <raven-serializer-core.version>1.0.0</raven-serializer-core.version>
-        <raven-serializer-withJackson.version>1.0.0</raven-serializer-withJackson.version>
+        <raven-serializer-core.version>1.0.1</raven-serializer-core.version>
+        <raven-serializer-withJackson.version>1.0.1</raven-serializer-withJackson.version>
         <raven-serializer-withMsgpack.version>1.0.0</raven-serializer-withMsgpack.version>
 
         <jackson-databind.version>2.9.4</jackson-databind.version>

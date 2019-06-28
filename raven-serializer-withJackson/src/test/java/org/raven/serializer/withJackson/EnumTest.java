@@ -55,6 +55,23 @@ public class EnumTest {
         System.out.println("deserialize, color:" + color);
     }
 
+    @Test
+    public void paperDeserializerTest()
+            throws IOException {
+
+        Paper paper = new Paper();
+        paper.setColor(ColorType.B);
+
+        byte[] data = serializer.serialize(paper);
+        System.out.println(new String(data));
+
+        String json = "{\"Color\":2,\"tlt\":null,\"Desc\":null}";
+        paper = serializer.deserialize(Paper.class, json.getBytes());
+
+        System.out.println(paper.toString());
+
+    }
+
     /**
      * int到字节数组的转换.
      */

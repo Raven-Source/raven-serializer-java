@@ -44,7 +44,7 @@ public class JacksonSerizlizerTest {
 
         System.out.println(json);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null,\"Gender\":false}";
 
         Assert.assertEquals(json, serializerRes);
@@ -65,7 +65,7 @@ public class JacksonSerizlizerTest {
 
         JacksonSerializer serializer = new JacksonSerializer();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null}";
         byte[] data = serializerRes.getBytes("UTF-8");
 
@@ -86,7 +86,7 @@ public class JacksonSerizlizerTest {
         serializerRes = "{\"Id\":123,\"Name\":null,\"List\":[1,3],\"A\":0,\"Gender\":true,\"Date2\":null}";
         data = serializerRes.getBytes("UTF-8");
         user2 = serializer.deserialize(User.class, data);
-        Assert.assertEquals(user2.getGender(), true);
+        Assert.assertEquals(user2.isGender(), true);
         Assert.assertNull(user2.getName());
     }
 

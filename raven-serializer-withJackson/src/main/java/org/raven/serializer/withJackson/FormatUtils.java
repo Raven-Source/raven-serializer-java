@@ -9,7 +9,7 @@ import org.raven.commons.data.MemberFormatType;
  * @since JDK1.8
  * date 2018/1/3 14:00:00
  */
-public class StringUtil {
+public class FormatUtils {
 
     /**
      * naming Format
