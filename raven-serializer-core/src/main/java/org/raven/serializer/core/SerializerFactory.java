@@ -18,6 +18,7 @@ public class SerializerFactory {
     private static EnumMap<SerializerType, String[]> _clazzNameDict = new EnumMap<SerializerType, String[]>(SerializerType.class) {
         {
             put(SerializerType.Jackson, new String[]{"org.raven.serializer.withJackson", "JacksonSerializer"});
+            put(SerializerType.Protobuf, new String[]{"org.raven.serializer.withProtobuf", "ProtobufSerializer"});
             put(SerializerType.MessagePack, new String[]{"org.raven.serializer.withMsgpack", "MsgpackSerializer"});
         }
     };

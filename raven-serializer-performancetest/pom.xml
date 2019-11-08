@@ -38,6 +38,11 @@
             <version>${raven-serializer-withJackson.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.github.raven-source</groupId>
+            <artifactId>raven-serializer-withProtobuf</artifactId>
+            <version>${raven-serializer-withProtobuf.version}</version>
+        </dependency>
 
     </dependencies>
     

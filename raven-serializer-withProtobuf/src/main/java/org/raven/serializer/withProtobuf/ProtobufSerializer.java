@@ -1,0 +1,63 @@
+package org.raven.serializer.withProtobuf;
+
+import com.baidu.bjf.remoting.protobuf.Codec;
+import com.baidu.bjf.remoting.protobuf.ProtobufProxy;
+import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.CodedOutputStream;
+import org.raven.serializer.core.BasicSerializer;
+import org.raven.serializer.core.Serializer;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/**
+ * @author yi.liang
+ * @since JDK1.8
+ * date 2019.08.22 19:35
+ */
+public class ProtobufSerializer extends BasicSerializer
+        implements Serializer {
+
+
+    @Override
+    public byte[] serialize(Object obj) throws IOException {
+
+        Codec codec = ProtobufProxy.create(obj.getClass());
+        return codec.encode(obj);
+
+    }
+
+    @Override
+    public void serialize(Object obj, OutputStream outputStream) throws IOException {
+
+        Codec codec = ProtobufProxy.create(obj.getClass());
+        CodedOutputStream codedOutputStream = CodedOutputStream.newInstance(outputStream);
+        codec.writeTo(obj, codedOutputStream);
+    }
+
+    @Override
+    public <T> T deserialize(Class<T> clazz, byte[] data) throws IOException {
+
+        Codec codec = ProtobufProxy.create(clazz);
+        return (T) codec.decode(data);
+    }
+
+    @Override
+    public <T> T deserialize(Class<T> clazz, byte[] data, int index, int count) throws IOException {
+
+        Codec codec = ProtobufProxy.create(clazz);
+        CodedInputStream codedInputStream = CodedInputStream.newInstance(data, index, count);
+
+        return (T) codec.readFrom(codedInputStream);
+    }
+
+    @Override
+    public <T> T deserialize(Class<T> clazz, InputStream inputStream) throws IOException {
+
+        Codec codec = ProtobufProxy.create(clazz);
+        CodedInputStream codedInputStream = CodedInputStream.newInstance(inputStream);
+        return (T) codec.readFrom(codedInputStream);
+
+    }
+}
