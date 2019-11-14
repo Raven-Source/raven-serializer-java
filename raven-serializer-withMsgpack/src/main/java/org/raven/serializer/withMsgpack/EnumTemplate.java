@@ -14,7 +14,7 @@ import java.io.IOException;
  * @since JDK1.8
  * date 2018/2/11 18:00:00
  */
-public class EnumTemplate<T extends Enum> extends AbstractTemplate<T> {
+public class EnumTemplate<T extends Enum<T>> extends AbstractTemplate<T> {
 
     private final Class<T> clazz;
     private final static Class<ValueEnum> valueEnumTypeClass = ValueEnum.class;

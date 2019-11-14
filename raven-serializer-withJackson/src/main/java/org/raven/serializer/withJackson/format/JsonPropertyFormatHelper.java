@@ -1,6 +1,7 @@
 package org.raven.serializer.withJackson.format;
 
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
+import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import org.raven.commons.data.MemberFormatUtil;
 import org.raven.commons.data.annotation.Contract;
@@ -18,10 +19,11 @@ public class JsonPropertyFormatHelper {
      * @param defaultName
      * @return
      */
-    public static String format(AnnotatedMethod method, String defaultName) {
+    public static String format(AnnotatedMember method, String defaultName) {
 
-        if (method == null)
+        if (method == null) {
             return defaultName;
+        }
 
         Member dataMember = method.getAnnotation(Member.class);
         if (dataMember != null) {
@@ -39,29 +41,30 @@ public class JsonPropertyFormatHelper {
 
     }
 
-    /**
-     * @param field
-     * @param defaultName
-     * @return
-     */
-    public static String format(AnnotatedField field, String defaultName) {
-
-        if (field == null)
-            return defaultName;
-
-        Member dataMember = field.getAnnotation(Member.class);
-        if (dataMember != null) {
-            return dataMember.value();
-        }
-
-        Contract contract = field.getAnnotation(Contract.class);
-        if (contract == null) {
-            contract = field.getDeclaringClass().getAnnotation(Contract.class);
-        }
-        if (contract != null) {
-            return MemberFormatUtil.namingFormat(defaultName, contract.formatType());
-        }
-        return defaultName;
-
-    }
+//    /**
+//     * @param field
+//     * @param defaultName
+//     * @return
+//     */
+//    public static String format(AnnotatedField field, String defaultName) {
+//
+//        if (field == null) {
+//            return defaultName;
+//        }
+//
+//        Member dataMember = field.getAnnotation(Member.class);
+//        if (dataMember != null) {
+//            return dataMember.value();
+//        }
+//
+//        Contract contract = field.getAnnotation(Contract.class);
+//        if (contract == null) {
+//            contract = field.getDeclaringClass().getAnnotation(Contract.class);
+//        }
+//        if (contract != null) {
+//            return MemberFormatUtil.namingFormat(defaultName, contract.formatType());
+//        }
+//        return defaultName;
+//
+//    }
 }

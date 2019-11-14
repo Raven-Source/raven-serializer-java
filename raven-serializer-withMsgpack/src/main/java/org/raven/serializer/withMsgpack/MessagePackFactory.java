@@ -16,8 +16,7 @@ public class MessagePackFactory {
     public static MessagePack create() {
 
         TemplateRegistry registry = new CustomTemplateRegistry();
-        MessagePack messagePack = new CustomMessagePack(registry);
-        return messagePack;
+        return new CustomMessagePack(registry);
     }
 
 }

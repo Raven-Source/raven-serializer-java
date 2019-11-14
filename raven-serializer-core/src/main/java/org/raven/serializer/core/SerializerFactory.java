@@ -107,9 +107,8 @@ public class SerializerFactory {
      * @return
      */
     public static Serializer create(SerializerType serializerType, Object[] args) {
-        Serializer serializer = getDataSerializer(serializerType, args);
         //Serializer serializer = (Serializer)Activator.CreateInstance(type, new object[] { });
-        return serializer;
+        return getDataSerializer(serializerType, args);
     }
 
     /**

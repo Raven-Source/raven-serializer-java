@@ -28,7 +28,7 @@
         <raven-serializer-withMsgpack.version>1.0.0</raven-serializer-withMsgpack.version>
         <raven-serializer-withProtobuf.version>1.0.0</raven-serializer-withProtobuf.version>
 
-        <jackson-databind.version>2.9.4</jackson-databind.version>
+        <jackson-databind.version>2.9.10.1</jackson-databind.version>
         <msgpack.version>0.6.12</msgpack.version>
 
     </properties>
