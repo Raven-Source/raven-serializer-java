@@ -5,6 +5,7 @@ import org.raven.serializer.core.util.Args;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author yi.liang
@@ -13,11 +14,11 @@ import java.nio.charset.Charset;
  */
 public abstract class BasicSerializer {
 
-    protected static final Charset charset = Charset.forName("UTF-8");
+    protected static final Charset charset = StandardCharsets.UTF_8;
 
-    protected static final Class stringClazz = String.class;
+    protected static final Class<String> stringClazz = String.class;
 
-    protected static final Class byteArrayClazz = byte[].class;
+    protected static final Class<byte[]> byteArrayClazz = byte[].class;
 
     public byte[] serializeString(String obj) {
 
@@ -69,9 +70,9 @@ public abstract class BasicSerializer {
 
         Args.notNull(data, "data");
 
-        if (clazz == byteArrayClazz) {
+        if (clazz.equals(byteArrayClazz)) {
             return (T) data;
-        } else if (clazz == stringClazz) {
+        } else if (clazz.equals(stringClazz)) {
             return (T) new String(data, index, count, charset);
         }
         return null;
@@ -90,14 +91,14 @@ public abstract class BasicSerializer {
 
         Args.notNull(inputStream, "inputStream");
 
-        if (clazz == byteArrayClazz || clazz == stringClazz) {
+        if (clazz.equals(byteArrayClazz) || clazz.equals(stringClazz)) {
             int count = inputStream.available();
             byte[] data = new byte[count];
             inputStream.read(data);
 
-            if (clazz == byteArrayClazz) {
+            if (clazz.equals(byteArrayClazz)) {
                 return (T) data;
-            } else if (clazz == stringClazz) {
+            } else {
                 return (T) new String(data, charset);
             }
         }

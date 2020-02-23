@@ -1,7 +1,7 @@
 package org.raven.serializer.withJackson.format;
 
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
-import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
+import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import org.raven.commons.data.MemberFormatUtils;
 import org.raven.commons.data.annotation.Contract;
 import org.raven.commons.data.annotation.Member;
@@ -18,10 +18,11 @@ public class JsonPropertyFormatHelper {
      * @param defaultName
      * @return
      */
-    public static String format(AnnotatedMethod method, String defaultName) {
+    public static String format(AnnotatedMember method, String defaultName) {
 
-        if (method == null)
+        if (method == null) {
             return defaultName;
+        }
 
         Member dataMember = method.getAnnotation(Member.class);
         if (dataMember != null) {

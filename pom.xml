@@ -7,12 +7,13 @@
     <groupId>io.github.raven-source</groupId>
     <artifactId>raven-serializer</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <modules>
         <module>raven-serializer-core</module>
         <module>raven-serializer-performancetest</module>
         <module>raven-serializer-withJackson</module>
         <module>raven-serializer-withMsgpack</module>
+        <module>raven-serializer-withProtobuf</module>
     </modules>
 
     <properties>
@@ -25,8 +26,9 @@
         <raven-serializer-core.version>1.0.2</raven-serializer-core.version>
         <raven-serializer-withJackson.version>1.0.2</raven-serializer-withJackson.version>
         <raven-serializer-withMsgpack.version>1.0.2</raven-serializer-withMsgpack.version>
+        <raven-serializer-withProtobuf.version>1.0.2</raven-serializer-withProtobuf.version>
 
-        <jackson-databind.version>2.9.4</jackson-databind.version>
+        <jackson-databind.version>2.9.10.1</jackson-databind.version>
         <msgpack.version>0.6.12</msgpack.version>
 
     </properties>

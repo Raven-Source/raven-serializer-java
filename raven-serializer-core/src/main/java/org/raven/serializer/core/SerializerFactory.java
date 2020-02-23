@@ -18,6 +18,7 @@ public class SerializerFactory {
     private static EnumMap<SerializerType, String[]> _clazzNameDict = new EnumMap<SerializerType, String[]>(SerializerType.class) {
         {
             put(SerializerType.Jackson, new String[]{"org.raven.serializer.withJackson", "JacksonSerializer"});
+            put(SerializerType.Protobuf, new String[]{"org.raven.serializer.withProtobuf", "ProtobufSerializer"});
             put(SerializerType.MessagePack, new String[]{"org.raven.serializer.withMsgpack", "MsgpackSerializer"});
         }
     };
@@ -106,9 +107,8 @@ public class SerializerFactory {
      * @return
      */
     public static Serializer create(SerializerType serializerType, Object[] args) {
-        Serializer serializer = getDataSerializer(serializerType, args);
         //Serializer serializer = (Serializer)Activator.CreateInstance(type, new object[] { });
-        return serializer;
+        return getDataSerializer(serializerType, args);
     }
 
     /**
