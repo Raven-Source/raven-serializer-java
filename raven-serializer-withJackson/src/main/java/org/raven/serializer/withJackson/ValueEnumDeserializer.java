@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.raven.commons.data.ValueEnum;
-import org.raven.commons.data.ValueEnumHelper;
+import org.raven.commons.data.ValueEnumUtils;
 import org.raven.serializer.core.util.StringUtils;
 
 import java.io.IOException;
@@ -50,13 +50,13 @@ public class ValueEnumDeserializer<T extends Enum<T> & ValueEnum> extends JsonDe
         /*int tokenId = p.getCurrentTokenId();
         if (tokenId == JsonTokenId.ID_NUMBER_INT) {
             value = p.getValueAsInt();
-            return ValueEnumHelper.valueOf(clazz, value);
+            return ValueEnumUtils.valueOf(clazz, value);
         } else if (tokenId == JsonTokenId.ID_STRING) {
             String name = p.getValueAsString();
 
             try {
                 value = Integer.parseInt(name);
-                return ValueEnumHelper.valueOf(clazz, value);
+                return ValueEnumUtils.valueOf(clazz, value);
 
             }catch (Exception e){
 
@@ -71,7 +71,7 @@ public class ValueEnumDeserializer<T extends Enum<T> & ValueEnum> extends JsonDe
 
         try {
             int value = Integer.parseInt(name);
-            return ValueEnumHelper.valueOf(clazz, value);
+            return ValueEnumUtils.valueOf(clazz, value);
 
         }catch (Exception e){
 

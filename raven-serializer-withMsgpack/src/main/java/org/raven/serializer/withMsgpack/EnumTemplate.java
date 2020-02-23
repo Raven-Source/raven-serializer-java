@@ -5,7 +5,7 @@ import org.msgpack.packer.Packer;
 import org.msgpack.template.AbstractTemplate;
 import org.msgpack.unpacker.Unpacker;
 import org.raven.commons.data.ValueEnum;
-import org.raven.commons.data.ValueEnumHelper;
+import org.raven.commons.data.ValueEnumUtils;
 
 import java.io.IOException;
 
@@ -62,7 +62,7 @@ public class EnumTemplate<T extends Enum> extends AbstractTemplate<T> {
             return null;
         }
         if (valueEnumTypeClass.isAssignableFrom(clazz)) {
-            return (T) ValueEnumHelper.valueOf((Class<? extends ValueEnum>) clazz, u.readInt());
+            return (T) ValueEnumUtils.valueOf((Class<? extends ValueEnum>) clazz, u.readInt());
         } else {
             return (T) Enum.valueOf(clazz, u.readString());
         }

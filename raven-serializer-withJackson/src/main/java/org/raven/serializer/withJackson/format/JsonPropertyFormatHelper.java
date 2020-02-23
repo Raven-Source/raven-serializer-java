@@ -2,7 +2,7 @@ package org.raven.serializer.withJackson.format;
 
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
-import org.raven.commons.data.MemberFormatUtil;
+import org.raven.commons.data.MemberFormatUtils;
 import org.raven.commons.data.annotation.Contract;
 import org.raven.commons.data.annotation.Member;
 
@@ -33,7 +33,7 @@ public class JsonPropertyFormatHelper {
             contract = method.getDeclaringClass().getAnnotation(Contract.class);
         }
         if (contract != null) {
-            return MemberFormatUtil.namingFormat(defaultName, contract.formatType());
+            return MemberFormatUtils.namingFormat(defaultName, contract.formatType());
         }
         return defaultName;
 
@@ -59,7 +59,7 @@ public class JsonPropertyFormatHelper {
             contract = field.getDeclaringClass().getAnnotation(Contract.class);
         }
         if (contract != null) {
-            return MemberFormatUtil.namingFormat(defaultName, contract.formatType());
+            return MemberFormatUtils.namingFormat(defaultName, contract.formatType());
         }
         return defaultName;
 

@@ -21,10 +21,10 @@
         <java.version>1.8</java.version>
         <encoding>UTF-8</encoding>
 
-        <raven-commons-data.version>1.0.2</raven-commons-data.version>
-        <raven-serializer-core.version>1.0.1</raven-serializer-core.version>
-        <raven-serializer-withJackson.version>1.0.1</raven-serializer-withJackson.version>
-        <raven-serializer-withMsgpack.version>1.0.0</raven-serializer-withMsgpack.version>
+        <raven-commons-data.version>1.0.3</raven-commons-data.version>
+        <raven-serializer-core.version>1.0.2</raven-serializer-core.version>
+        <raven-serializer-withJackson.version>1.0.2</raven-serializer-withJackson.version>
+        <raven-serializer-withMsgpack.version>1.0.2</raven-serializer-withMsgpack.version>
 
         <jackson-databind.version>2.9.4</jackson-databind.version>
         <msgpack.version>0.6.12</msgpack.version>
