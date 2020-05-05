@@ -1,11 +1,11 @@
 package org.raven.serializer.withJackson;
 
-import org.raven.commons.data.ValueEnum;
+import org.raven.commons.data.ValueType;
 
 //@JsonFormat(shape = JsonFormat.Shape.NUMBER)
 //@JsonDeserialize(using = ValueEnumTypeDeserializer.class)
 //@JsonSerialize(using = ValueEnumTypeSerializer.class)
-public enum ColorType2 implements ValueEnum {
+public enum ColorType2 implements ValueType<Integer> {
     A(1),
     D(4),
     C(3),
@@ -18,7 +18,7 @@ public enum ColorType2 implements ValueEnum {
     }
 
     //@JsonValue
-    public int getValue() {
+    public Integer getValue() {
         return val;
     }
 

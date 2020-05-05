@@ -1,8 +1,8 @@
 package org.raven.serializer.withMsgpack;
 
-import org.raven.commons.data.ValueEnum;
+import org.raven.commons.data.ValueType;
 
-public enum ColorType implements ValueEnum {
+public enum ColorType implements ValueType<Integer> {
 
     A(1),
     B(2),
@@ -12,7 +12,7 @@ public enum ColorType implements ValueEnum {
     private int value;
 
     @Override
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 

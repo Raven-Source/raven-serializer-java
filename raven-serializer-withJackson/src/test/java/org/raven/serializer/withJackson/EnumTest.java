@@ -18,7 +18,7 @@ public class EnumTest {
 
     @Test
     public void valueEnumSerializer()
-            throws IOException {
+        throws IOException {
 
         valueEnumDeserializerTest(ColorType.A);
         valueEnumDeserializerTest(ColorType.B);
@@ -37,7 +37,7 @@ public class EnumTest {
      * @throws IOException
      */
     private void valueEnumSerializerTest(ColorType colorType)
-            throws IOException {
+        throws IOException {
 
         byte[] data = serializer.serialize(colorType);
         String color = new String(data);
@@ -48,7 +48,7 @@ public class EnumTest {
 
 
     private void valueEnumDeserializerTest(ColorType colorType)
-            throws IOException {
+        throws IOException {
 
         ColorType color = serializer.deserialize(ColorType.class, Integer.toString(colorType.getValue()).getBytes());
         Assert.assertEquals(color, colorType);
@@ -57,7 +57,7 @@ public class EnumTest {
 
     @Test
     public void paperDeserializerTest()
-            throws IOException {
+        throws IOException {
 
         Paper paper = new Paper();
         paper.setColor(ColorType.B);
@@ -69,6 +69,24 @@ public class EnumTest {
         paper = serializer.deserialize(Paper.class, json.getBytes());
 
         System.out.println(paper.toString());
+
+    }
+
+
+    @Test
+    public void valueTypeDeserializerTest()
+        throws IOException {
+
+        Gender gender = null;
+
+        gender = serializer.deserialize(Gender.class, Gender.man.getValue().toString().getBytes());
+        gender = serializer.deserialize(Gender.class, Gender.man.getValue().toString().getBytes());
+        System.out.println(gender);
+        Assert.assertEquals(gender, Gender.man);
+
+        gender = serializer.deserialize(Gender.class, Gender.woman.getValue().toString().getBytes());
+        System.out.println(gender);
+        Assert.assertEquals(gender, Gender.woman);
 
     }
 

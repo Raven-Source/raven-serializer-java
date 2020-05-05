@@ -4,10 +4,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.DefaultDeserializationContext;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.raven.commons.data.ValueEnum;
+import org.raven.commons.data.ValueType;
 
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 /**
  * ObjectMapper config
@@ -47,7 +46,7 @@ public class ObjectMapperConfig {
         }
 
         SimpleModule module = new SimpleModule();
-        module.addSerializer(ValueEnum.class, new ValueEnumSerializer());
+        module.addSerializer(ValueType.class, new ValueTypeSerializer());
 
         mapper.registerModules(module);
 

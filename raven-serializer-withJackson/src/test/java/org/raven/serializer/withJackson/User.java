@@ -20,7 +20,6 @@ public class User {
     private long a;
     private Date date2;
 
-    private boolean gender;
-
+    private Gender gender = Gender.man;
 
 }

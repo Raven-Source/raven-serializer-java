@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.cfg.DeserializerFactoryConfig;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerFactory;
 import com.fasterxml.jackson.databind.deser.DeserializerFactory;
-import org.raven.commons.data.ValueEnum;
+import org.raven.commons.data.ValueType;
 
 import java.util.Date;
 
@@ -19,14 +19,12 @@ public class CustomBeanDeserializerFactory extends BeanDeserializerFactory {
 
     public final static CustomBeanDeserializerFactory instance(SerializerSetting setting) {
         return new CustomBeanDeserializerFactory(
-                new DeserializerFactoryConfig()
-                , setting);
+            new DeserializerFactoryConfig()
+            , setting);
     }
 
-    private final static Class<ValueEnum> valueEnumTypeClass = ValueEnum.class;
-
     private SerializerSetting setting;
-    private CustomDateDeserializer customDateDeserializer;
+    private CustomDateDeserializer dateDeserializer;
 
     /**
      * @param config
@@ -35,7 +33,7 @@ public class CustomBeanDeserializerFactory extends BeanDeserializerFactory {
         super(config);
 
         this.setting = setting;
-        this.customDateDeserializer = new CustomDateDeserializer(setting.getDeserializeDateFormatString());
+        this.dateDeserializer = new CustomDateDeserializer(setting.getDeserializeDateFormatString());
     }
 
     @Override
@@ -49,9 +47,12 @@ public class CustomBeanDeserializerFactory extends BeanDeserializerFactory {
     @Override
     public JsonDeserializer createBeanDeserializer(DeserializationContext ctxt, JavaType type, BeanDescription beanDesc) throws JsonMappingException {
 
-        final Class<?> clazz = type.getRawClass();
-        if (clazz.equals(Date.class)) {
-            return customDateDeserializer;
+        final Class<?> target = type.getRawClass();
+        if (target.equals(Date.class)) {
+            return dateDeserializer;
+        }
+        if (ValueType.class.isAssignableFrom(target)) {
+            return createValueTypeDeserializer((Class<? extends ValueType>) target);
         }
 
         return super.createBeanDeserializer(ctxt, type, beanDesc);
@@ -60,10 +61,16 @@ public class CustomBeanDeserializerFactory extends BeanDeserializerFactory {
     @Override
     public JsonDeserializer<?> createEnumDeserializer(DeserializationContext ctxt, JavaType type, BeanDescription beanDesc) throws JsonMappingException {
 
-        final Class<?> enumClass = type.getRawClass();
-        if (valueEnumTypeClass.isAssignableFrom(enumClass)) {
-            return new ValueEnumDeserializer(enumClass);
+        final Class<?> target = type.getRawClass();
+        if (ValueType.class.isAssignableFrom(target)) {
+            return createValueTypeDeserializer((Class<? extends ValueType>) target);
         } else
             return super.createEnumDeserializer(ctxt, type, beanDesc);
+    }
+
+    private JsonDeserializer<?> createValueTypeDeserializer(Class<? extends ValueType> target) {
+
+        JsonDeserializer<?> deserializer = new ValueTypeDeserializer(target);
+        return deserializer;
     }
 }

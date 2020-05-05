@@ -2,6 +2,7 @@ package org.raven.serializer.withMsgpack;
 
 import org.msgpack.template.Template;
 import org.msgpack.template.TemplateRegistry;
+import org.raven.commons.data.ValueType;
 
 import java.lang.reflect.*;
 import java.util.HashSet;
@@ -35,9 +36,9 @@ public class CustomTemplateRegistry extends TemplateRegistry {
                 || targetType instanceof WildcardType
                 || targetType instanceof TypeVariable
                 || typeCache.contains(targetType)
-                || !Enum.class.isAssignableFrom((Class<?>) targetType)) {
+                || !ValueType.class.isAssignableFrom((Class<?>) targetType)) {
         } else {
-            super.register(targetType, new EnumTemplate((Class<?>) targetType));
+            super.register(targetType, new ValueTypeTemplate((Class<?>) targetType));
             typeCache.add(targetType);
         }
 

@@ -9,7 +9,7 @@ public enum SerializerType {
 
     Jackson(),
 
-    Protobuf(),
+//    Protobuf(),
 
     MessagePack(),
     ;
