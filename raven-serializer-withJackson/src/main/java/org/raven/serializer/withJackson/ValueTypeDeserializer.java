@@ -6,9 +6,9 @@ import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import lombok.extern.slf4j.Slf4j;
-import org.raven.commons.data.StringUtils;
 import org.raven.commons.data.ValueType;
 import org.raven.commons.data.ValueTypeUtils;
+import org.raven.commons.util.StringUtils;
 
 import java.io.IOException;
 

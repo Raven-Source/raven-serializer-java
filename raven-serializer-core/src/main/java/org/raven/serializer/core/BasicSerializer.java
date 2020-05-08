@@ -1,6 +1,7 @@
 package org.raven.serializer.core;
 
-import org.raven.serializer.core.util.Args;
+
+import org.raven.commons.util.Args;
 
 import java.io.IOException;
 import java.io.InputStream;

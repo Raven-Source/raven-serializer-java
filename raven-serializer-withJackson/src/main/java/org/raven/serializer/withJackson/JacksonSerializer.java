@@ -1,10 +1,10 @@
 package org.raven.serializer.withJackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.raven.commons.util.Args;
 import org.raven.serializer.core.BasicSerializer;
 import org.raven.serializer.core.Serializer;
 import org.raven.serializer.core.StringSerializer;
-import org.raven.serializer.core.util.Args;
 
 import java.io.IOException;
 import java.io.InputStream;

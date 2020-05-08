@@ -6,8 +6,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.raven.serializer.core.util.DateUtils;
-import org.raven.serializer.core.util.StringUtils;
+import org.raven.commons.util.DateUtils;
+import org.raven.commons.util.StringUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
