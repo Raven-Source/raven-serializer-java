@@ -34,8 +34,17 @@ public class Gender implements ValueType<Integer> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Gender))
+        if (obj == null)
             return false;
-        return ((Gender) obj).value == this.value;
+
+        if (obj instanceof Gender) {
+            return ((Gender) obj).value == this.value;
+        }
+
+        if (obj instanceof Number) {
+            return obj.equals(value);
+        }
+
+        return false;
     }
 }
