@@ -18,13 +18,13 @@ import java.util.Date;
  * @since JDK1.8
  * date 2019.06.28 16:49
  */
-public class CustomDateDeserializer extends JsonDeserializer<Date>
+public class MultiFormatDateDeserializer extends JsonDeserializer<Date>
         implements java.io.Serializable {
 
     private String[] deserializeDateFormatString;
     private static Class _valueClass = Date.class;
 
-    public CustomDateDeserializer(String[] deserializeDateFormatString) {
+    public MultiFormatDateDeserializer(String[] deserializeDateFormatString) {
         super();
 
         this.deserializeDateFormatString = deserializeDateFormatString;

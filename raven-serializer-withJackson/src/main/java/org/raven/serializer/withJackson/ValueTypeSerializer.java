@@ -20,6 +20,7 @@ public class ValueTypeSerializer extends JsonSerializer<ValueType>
     implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
+    static final ValueTypeSerializer INSTANCE = new ValueTypeSerializer();
 
     /**
      * @param value

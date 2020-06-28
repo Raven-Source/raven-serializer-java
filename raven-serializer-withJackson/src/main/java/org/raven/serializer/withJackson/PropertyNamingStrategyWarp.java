@@ -11,7 +11,7 @@ import org.raven.serializer.withJackson.format.JsonPropertyFormatHelper;
  * date 2018.9.25
  * @since JDK1.8
  */
-public class CustomPropertyNamingStrategy extends PropertyNamingStrategy {
+public class PropertyNamingStrategyWarp extends PropertyNamingStrategy {
 
     /**
      * for deserialize

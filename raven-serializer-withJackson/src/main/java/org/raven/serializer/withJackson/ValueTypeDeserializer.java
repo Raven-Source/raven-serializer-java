@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import lombok.extern.slf4j.Slf4j;
 import org.raven.commons.data.ValueType;
 import org.raven.commons.data.ValueTypeUtils;
@@ -18,17 +18,16 @@ import java.io.IOException;
  * @since JDK1.8
  */
 @Slf4j
-public class ValueTypeDeserializer<T extends ValueType> extends JsonDeserializer<T>
+public class ValueTypeDeserializer<T extends ValueType> extends StdDeserializer<T>
     implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final Class<T> target;
 
     /**
      * @param target
      */
     public ValueTypeDeserializer(final Class<T> target) {
-        this.target = target;
+        super(target);
     }
 
     /**
@@ -51,16 +50,16 @@ public class ValueTypeDeserializer<T extends ValueType> extends JsonDeserializer
 
         int tokenId = p.getCurrentTokenId();
         if (tokenId == JsonTokenId.ID_NUMBER_INT) {
-            return ValueTypeUtils.valueOf(target, p.getIntValue());
+            return ValueTypeUtils.valueOf((Class<T>) _valueClass, p.getIntValue());
         } else if (tokenId == JsonTokenId.ID_NUMBER_FLOAT) {
-            return ValueTypeUtils.valueOf(target, p.getFloatValue());
+            return ValueTypeUtils.valueOf((Class<T>) _valueClass, p.getFloatValue());
         } else {
             String source = p.getValueAsString();
             if (StringUtils.isNumeric(source)) {
-                return ValueTypeUtils.valueOf(target, source);
+                return ValueTypeUtils.valueOf((Class<T>) _valueClass, source);
             }
 
-            return (T) ValueTypeUtils.nameOf((Class) target, source);
+            return (T) ValueTypeUtils.nameOf((Class) _valueClass, source);
         }
 
     }

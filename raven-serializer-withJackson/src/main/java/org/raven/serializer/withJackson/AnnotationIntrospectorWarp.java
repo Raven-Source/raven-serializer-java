@@ -10,7 +10,7 @@ import org.raven.commons.data.annotation.Ignore;
  * date by 2018/1/8
  * @since JDK1.8
  */
-public class CustomAnnotationIntrospector extends JacksonAnnotationIntrospector {
+public class AnnotationIntrospectorWarp extends JacksonAnnotationIntrospector {
 
     @Override
     public boolean hasIgnoreMarker(AnnotatedMember m) {

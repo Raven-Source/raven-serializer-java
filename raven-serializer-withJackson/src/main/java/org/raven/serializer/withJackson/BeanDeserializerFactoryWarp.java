@@ -15,25 +15,26 @@ import java.util.Date;
  * @since JDK1.8
  * date 2018/3/20 14:00:00
  */
-public class CustomBeanDeserializerFactory extends BeanDeserializerFactory {
+@Deprecated
+public class BeanDeserializerFactoryWarp extends BeanDeserializerFactory {
 
-    public final static CustomBeanDeserializerFactory instance(SerializerSetting setting) {
-        return new CustomBeanDeserializerFactory(
+    public final static BeanDeserializerFactoryWarp instance(SerializerSetting setting) {
+        return new BeanDeserializerFactoryWarp(
             new DeserializerFactoryConfig()
             , setting);
     }
 
     private SerializerSetting setting;
-    private CustomDateDeserializer dateDeserializer;
+    private MultiFormatDateDeserializer dateDeserializer;
 
     /**
      * @param config
      */
-    public CustomBeanDeserializerFactory(DeserializerFactoryConfig config, SerializerSetting setting) {
+    public BeanDeserializerFactoryWarp(DeserializerFactoryConfig config, SerializerSetting setting) {
         super(config);
 
         this.setting = setting;
-        this.dateDeserializer = new CustomDateDeserializer(setting.getDeserializeDateFormatString());
+        this.dateDeserializer = new MultiFormatDateDeserializer(setting.getDeserializeDateFormatString());
     }
 
     @Override
@@ -41,7 +42,7 @@ public class CustomBeanDeserializerFactory extends BeanDeserializerFactory {
         if (_factoryConfig == config) {
             return this;
         }
-        return new CustomBeanDeserializerFactory(config, setting);
+        return new BeanDeserializerFactoryWarp(config, setting);
     }
 
     @Override
