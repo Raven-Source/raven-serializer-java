@@ -10,12 +10,12 @@ import java.util.Date;
  * @since JDK1.8
  * date 2020.06.29 01:26
  */
-public class ValueTypeModel extends SimpleModule {
+public class ValueTypeModule extends SimpleModule {
 
     protected SerializerSetting setting;
 
-    public ValueTypeModel(SerializerSetting setting) {
-        super("ValueTypeModel", PackageVersion.VERSION);
+    public ValueTypeModule(SerializerSetting setting) {
+        super("ValueTypeModule", PackageVersion.VERSION);
 
         this.setting = setting;
         this.addSerializer(ValueType.class, ValueTypeSerializer.INSTANCE);

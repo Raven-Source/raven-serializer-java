@@ -2,6 +2,7 @@ package org.raven.serializer.withJackson;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.text.SimpleDateFormat;
@@ -43,11 +44,13 @@ public class ObjectMapperConfig {
             mapper.setDateFormat(new SimpleDateFormat(setting.getDateFormatString()));
         }
 
-        ValueTypeModel module = new ValueTypeModel(setting);
+        ValueTypeModule module = new ValueTypeModule(setting);
 //        module.addSerializer(ValueType.class, new ValueTypeSerializer());
 
         mapper.registerModules(module);
         mapper.registerModules(new JavaTimeModule());
+        mapper.registerModules(new Jdk8Module());
+
 
         mapper.setAnnotationIntrospector(new AnnotationIntrospectorWarp());
         mapper.setPropertyNamingStrategy(new PropertyNamingStrategyWarp());
