@@ -2,10 +2,13 @@ package org.raven.serializer.withMsgpack;
 
 import org.msgpack.template.Template;
 import org.msgpack.template.TemplateRegistry;
+import org.raven.commons.data.SerializableType;
+import org.raven.commons.data.StringType;
 import org.raven.commons.data.ValueType;
 
 import java.lang.reflect.*;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author yi.liang
@@ -14,7 +17,7 @@ import java.util.HashSet;
  */
 public class CustomTemplateRegistry extends TemplateRegistry {
 
-    private HashSet<Type> typeCache;
+    private Set<Type> typeCache;
 
     /**
      *
@@ -32,13 +35,16 @@ public class CustomTemplateRegistry extends TemplateRegistry {
     public synchronized Template lookup(Type targetType) {
 
         if (targetType instanceof ParameterizedType
-                || targetType instanceof GenericArrayType
-                || targetType instanceof WildcardType
-                || targetType instanceof TypeVariable
-                || typeCache.contains(targetType)
-                || !ValueType.class.isAssignableFrom((Class<?>) targetType)) {
-        } else {
+            || targetType instanceof GenericArrayType
+            || targetType instanceof WildcardType
+            || targetType instanceof TypeVariable
+            || typeCache.contains(targetType)
+            || !SerializableType.class.isAssignableFrom((Class<?>) targetType)) {
+        } else if (ValueType.class.isAssignableFrom((Class<?>) targetType)) {
             super.register(targetType, new ValueTypeTemplate((Class<?>) targetType));
+            typeCache.add(targetType);
+        } else if (StringType.class.isAssignableFrom((Class<?>) targetType)) {
+            super.register(targetType, new StringTypeTemplate((Class<?>) targetType));
             typeCache.add(targetType);
         }
 
