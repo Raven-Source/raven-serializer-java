@@ -7,7 +7,7 @@
     <groupId>io.github.raven-source</groupId>
     <artifactId>raven-serializer</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.4</version>
+    <version>3.0.0</version>
     <modules>
         <module>raven-serializer-core</module>
         <module>raven-serializer-performancetest</module>
@@ -23,7 +23,7 @@
         <encoding>UTF-8</encoding>
 
         <raven-serializer.version>${project.version}</raven-serializer.version>
-        <raven-commons.version>2.0.2-RELEASE</raven-commons.version>
+        <raven-commons.version>3.0.0</raven-commons.version>
 
         <jackson-databind.version>2.10.4</jackson-databind.version>
         <msgpack.version>0.6.12</msgpack.version>
