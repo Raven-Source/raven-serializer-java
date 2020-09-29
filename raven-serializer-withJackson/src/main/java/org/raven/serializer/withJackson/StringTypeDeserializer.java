@@ -2,13 +2,11 @@ package org.raven.serializer.withJackson;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import lombok.extern.slf4j.Slf4j;
 import org.raven.commons.data.SerializableTypeUtils;
-import org.raven.commons.data.ValueType;
-import org.raven.commons.util.StringUtils;
+import org.raven.commons.data.StringType;
 
 import java.io.IOException;
 
@@ -18,7 +16,7 @@ import java.io.IOException;
  * @since JDK1.8
  */
 @Slf4j
-public class ValueTypeDeserializer<T extends ValueType> extends StdDeserializer<T>
+public class StringTypeDeserializer<T extends StringType> extends StdDeserializer<T>
         implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +24,7 @@ public class ValueTypeDeserializer<T extends ValueType> extends StdDeserializer<
     /**
      * @param target
      */
-    public ValueTypeDeserializer(final Class<T> target) {
+    public StringTypeDeserializer(final Class<T> target) {
         super(target);
     }
 
@@ -48,20 +46,8 @@ public class ValueTypeDeserializer<T extends ValueType> extends StdDeserializer<
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 
-        int tokenId = p.getCurrentTokenId();
-        if (tokenId == JsonTokenId.ID_NUMBER_INT) {
-            return SerializableTypeUtils.valueOf((Class<T>) _valueClass, p.getIntValue());
-        } else if (tokenId == JsonTokenId.ID_NUMBER_FLOAT) {
-            return SerializableTypeUtils.valueOf((Class<T>) _valueClass, p.getFloatValue());
-        } else {
-            String source = p.getValueAsString();
-            if (StringUtils.isNumeric(source)) {
-                return SerializableTypeUtils.stringValueOf((Class<T>) _valueClass, source);
-            } else {
-
-                return (T) SerializableTypeUtils.nameOf((Class) _valueClass, source);
-            }
-        }
+        String source = p.getValueAsString();
+        return SerializableTypeUtils.valueOf((Class<T>) _valueClass, source);
 
     }
 

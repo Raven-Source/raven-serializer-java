@@ -3,9 +3,8 @@ package org.raven.serializer.withJackson;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.raven.commons.data.GenericUtils;
 import org.raven.commons.data.ValueType;
-import org.raven.commons.data.ValueTypeUtils;
+import org.raven.commons.data.SerializableTypeUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -32,7 +31,7 @@ public class ValueTypeSerializer extends JsonSerializer<ValueType>
     public void serialize(ValueType value, JsonGenerator generator, SerializerProvider provider) throws IOException {
         if (value != null) {
 
-            Class clazz = ValueTypeUtils.getGenericType(value.getClass());
+            Class clazz = SerializableTypeUtils.getGenericType(value.getClass());
 
             if (clazz.equals(Integer.class)) {
                 generator.writeNumber(value.getValue().intValue());

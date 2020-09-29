@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class JacksonSerizlizerTest {
+public class JacksonSerializerTest {
 
     User user;
 
@@ -45,7 +45,7 @@ public class JacksonSerizlizerTest {
         System.out.println(json);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null,\"Gender\":1}";
+        String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null,\"Gender\":1,\"Platform\":\"ali\"}";
 
         Assert.assertEquals(json, serializerRes);
 
@@ -76,6 +76,7 @@ public class JacksonSerizlizerTest {
         user2 = serializer.deserialize(User.class, data, 0, data.length);
         Assert.assertEquals(user.getName(), user2.getName());
         Assert.assertEquals(user.getTime().toString(), user2.getTime().toString());
+        Assert.assertEquals(user.getPlatform(), Platform.Ali);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
         user2 = serializer.deserialize(User.class, inputStream);
@@ -83,11 +84,12 @@ public class JacksonSerizlizerTest {
         Assert.assertEquals(user.getTime().toString(), user2.getTime().toString());
         inputStream.close();
 
-        serializerRes = "{\"Id\":123,\"Name\":null,\"List\":[1,3],\"A\":0,\"Gender\":2,\"Date2\":null}";
+        serializerRes = "{\"Id\":123,\"Name\":null,\"List\":[1,3],\"A\":0,\"Gender\":2,\"Date2\":null,\"Platform\":\"wx\"}";
         data = serializerRes.getBytes("UTF-8");
         user2 = serializer.deserialize(User.class, data);
         Assert.assertEquals(user2.getGender(), 2);
         Assert.assertNull(user2.getName());
+        Assert.assertEquals(user2.getPlatform(), Platform.WX);
     }
 
     @Test

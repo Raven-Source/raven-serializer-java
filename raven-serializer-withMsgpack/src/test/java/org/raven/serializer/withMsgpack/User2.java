@@ -28,4 +28,7 @@ public class User2 {
     @Index(6)
     private List<ColorType> colorList;
 
+    @Index(7)
+    private Platform platform;
+
 }

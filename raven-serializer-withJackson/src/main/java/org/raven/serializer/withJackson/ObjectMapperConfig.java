@@ -44,10 +44,16 @@ public class ObjectMapperConfig {
             mapper.setDateFormat(new SimpleDateFormat(setting.getDateFormatString()));
         }
 
-        ValueTypeModule module = new ValueTypeModule(setting);
+        ValueTypeModule valueTypeModule = new ValueTypeModule(setting);
+        StringTypeModule stringTypeModule = new StringTypeModule(setting);
+        MultiFormatDateModule multiFormatDateModule = new MultiFormatDateModule(setting);
+
 //        module.addSerializer(ValueType.class, new ValueTypeSerializer());
 
-        mapper.registerModules(module);
+        mapper.registerModules(valueTypeModule);
+        mapper.registerModules(stringTypeModule);
+        mapper.registerModules(multiFormatDateModule);
+        
         mapper.registerModules(new JavaTimeModule());
         mapper.registerModules(new Jdk8Module());
 

@@ -4,7 +4,7 @@ import org.msgpack.MessageTypeException;
 import org.msgpack.packer.Packer;
 import org.msgpack.template.AbstractTemplate;
 import org.msgpack.unpacker.Unpacker;
-import org.raven.commons.data.ValueType;
+import org.raven.commons.data.SerializableType;
 import org.raven.commons.data.SerializableTypeUtils;
 
 import java.io.IOException;
@@ -16,14 +16,14 @@ import java.math.BigInteger;
  * @since JDK1.8
  * date 2018/2/11 18:00:00
  */
-public class ValueTypeTemplate<T extends ValueType> extends AbstractTemplate<T> {
+public class SerializableTypeTemplate<T extends SerializableType> extends AbstractTemplate<T> {
 
     private final Class<T> target;
 
     /**
      * @param target
      */
-    public ValueTypeTemplate(final Class<T> target) {
+    public SerializableTypeTemplate(final Class<T> target) {
         this.target = target;
     }
 
@@ -60,6 +60,9 @@ public class ValueTypeTemplate<T extends ValueType> extends AbstractTemplate<T> 
         }
 
         Class genericType = SerializableTypeUtils.getGenericType(target);
+        if (genericType.equals(String.class)) {
+            return SerializableTypeUtils.valueOf(target, u.readString());
+        }
         if (genericType.equals(Integer.class)) {
             return SerializableTypeUtils.valueOf(target, u.readInt());
         }
