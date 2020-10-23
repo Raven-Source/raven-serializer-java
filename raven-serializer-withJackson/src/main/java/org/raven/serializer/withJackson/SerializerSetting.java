@@ -3,6 +3,7 @@ package org.raven.serializer.withJackson;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.TimeZone;
 
@@ -31,14 +32,17 @@ public class SerializerSetting {
     public static SerializerSetting getDefault() {
 
         SerializerSetting setting = new SerializerSetting();
-        setting.setDateFormatString("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        setting.setDateFormatString("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         setting.setDeserializeDateFormatString(new String[]{
-                "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
-                "yyyy-MM-dd'T'HH:mm:ssZ",
-                "yyyy-MM-dd HH:mm:ss.SSS",
-                "yyyy-MM-dd HH:mm:ss"
+            "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",   //ISO_OFFSET
+            "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+            "yyyy-MM-dd'T'HH:mm:ssZ",
+            "yyyy-MM-dd HH:mm:ss.SSS",
+            "yyyy-MM-dd HH:mm:ss"
         });
-        setting.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+//        java.time.zone.ZoneRules
+
+        setting.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 
         return setting;
     }
@@ -46,9 +50,9 @@ public class SerializerSetting {
     @Override
     public String toString() {
         return "SerializerSetting{" +
-                "dateFormatString='" + dateFormatString + '\'' +
-                ", deserializeDateFormatString=" + Arrays.toString(deserializeDateFormatString) +
-                ", timeZone=" + timeZone +
-                '}';
+            "dateFormatString='" + dateFormatString + '\'' +
+            ", deserializeDateFormatString=" + Arrays.toString(deserializeDateFormatString) +
+            ", timeZone=" + timeZone +
+            '}';
     }
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.type.ReferenceType;
+import org.raven.commons.data.StringType;
 import org.raven.commons.data.ValueType;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.io.Serializable;
  * @since JDK1.8
  * date 2020.06.29 01:35
  */
-public class ValueTypeDeserializers extends Deserializers.Base implements Serializable {
+public class SerializableTypeDeserializers extends Deserializers.Base implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -30,7 +31,10 @@ public class ValueTypeDeserializers extends Deserializers.Base implements Serial
 
     @Override
     public JsonDeserializer<?> findReferenceDeserializer(ReferenceType refType, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer contentTypeDeserializer, JsonDeserializer<?> contentDeserializer) throws JsonMappingException {
-        if (ValueType.class.isAssignableFrom(refType.getRawClass())) {
+
+        if (StringType.class.isAssignableFrom(refType.getRawClass())) {
+            return new StringTypeDeserializer(refType.getRawClass());
+        } else if (ValueType.class.isAssignableFrom(refType.getRawClass())) {
             return new ValueTypeDeserializer(refType.getRawClass());
         } else {
             return super.findReferenceDeserializer(refType, config, beanDesc, contentTypeDeserializer, contentDeserializer);

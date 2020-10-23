@@ -32,7 +32,7 @@ public class ObjectMapperConfig {
 //        DefaultDeserializationContext deserializationContext =
 //                new DefaultDeserializationContext.Impl(BeanDeserializerFactoryWarp.instance(setting));
 
-        ObjectMapper mapper = new ObjectMapper(null, null, null);
+        ObjectMapper mapper = new ObjectMapper();
         //mapper.setSerializerFactory(mapper.getSerializerFactory().withSerializerModifier(new ModifySerializer()));
 
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -44,10 +44,8 @@ public class ObjectMapperConfig {
             mapper.setDateFormat(new SimpleDateFormat(setting.getDateFormatString()));
         }
 
-        ValueTypeModule module = new ValueTypeModule(setting);
-//        module.addSerializer(ValueType.class, new ValueTypeSerializer());
-
-        mapper.registerModules(module);
+        mapper.registerModules(new MultiFormatDateModule(setting));
+        mapper.registerModules(new SerializableTypeModule(setting));
         mapper.registerModules(new JavaTimeModule());
         mapper.registerModules(new Jdk8Module());
 

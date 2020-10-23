@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import lombok.extern.slf4j.Slf4j;
 import org.raven.commons.data.ValueType;
-import org.raven.commons.data.ValueTypeUtils;
+import org.raven.commons.data.SerializableTypeUtils;
 import org.raven.commons.util.StringUtils;
 
 import java.io.IOException;
@@ -50,16 +50,16 @@ public class ValueTypeDeserializer<T extends ValueType> extends StdDeserializer<
 
         int tokenId = p.getCurrentTokenId();
         if (tokenId == JsonTokenId.ID_NUMBER_INT) {
-            return ValueTypeUtils.valueOf((Class<T>) _valueClass, p.getIntValue());
+            return SerializableTypeUtils.valueOf((Class<T>) _valueClass, p.getIntValue());
         } else if (tokenId == JsonTokenId.ID_NUMBER_FLOAT) {
-            return ValueTypeUtils.valueOf((Class<T>) _valueClass, p.getFloatValue());
+            return SerializableTypeUtils.valueOf((Class<T>) _valueClass, p.getFloatValue());
         } else {
             String source = p.getValueAsString();
             if (StringUtils.isNumeric(source)) {
-                return ValueTypeUtils.valueOf((Class<T>) _valueClass, source);
+                return SerializableTypeUtils.stringValueOf((Class<T>) _valueClass, source);
             }
 
-            return (T) ValueTypeUtils.nameOf((Class) _valueClass, source);
+            return (T) SerializableTypeUtils.nameOf((Class) _valueClass, source);
         }
 
     }

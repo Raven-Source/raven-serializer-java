@@ -22,4 +22,6 @@ public class User {
 
     private Gender gender = Gender.man;
 
+    private Platform platform = Platform.wx;
+
 }

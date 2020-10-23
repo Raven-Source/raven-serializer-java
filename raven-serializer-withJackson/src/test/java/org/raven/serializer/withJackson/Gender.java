@@ -1,6 +1,7 @@
 package org.raven.serializer.withJackson;
 
 import org.raven.commons.data.ValueType;
+import org.raven.commons.data.annotation.Create;
 
 /**
  * @author yi.liang
@@ -23,6 +24,7 @@ public class Gender implements ValueType<Integer> {
     public final static Gender man = new Gender(1);
     public final static Gender woman = new Gender(2);
 
+    @Create
     public static Gender valueOf(Integer i) {
         return new Gender(i.intValue());
     }

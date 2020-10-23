@@ -3,9 +3,8 @@ package org.raven.serializer.withJackson;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.raven.commons.data.GenericUtils;
+import org.raven.commons.data.SerializableTypeUtils;
 import org.raven.commons.data.ValueType;
-import org.raven.commons.data.ValueTypeUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -30,32 +29,30 @@ public class ValueTypeSerializer extends JsonSerializer<ValueType>
      */
     @Override
     public void serialize(ValueType value, JsonGenerator generator, SerializerProvider provider) throws IOException {
-        if (value != null) {
 
-            Class clazz = ValueTypeUtils.getGenericType(value.getClass());
+        if (value == null) {
+            generator.writeNumber(0);
+        } else {
+
+            Class<?> clazz = SerializableTypeUtils.getGenericType(value.getClass());
 
             if (clazz.equals(Integer.class)) {
                 generator.writeNumber(value.getValue().intValue());
-            }
-            if (clazz.equals(Long.class)) {
+            } else if (clazz.equals(Long.class)) {
                 generator.writeNumber(value.getValue().longValue());
-            }
-            if (clazz.equals(BigInteger.class)) {
+            } else if (clazz.equals(BigInteger.class)) {
                 generator.writeNumber((BigInteger) value.getValue());
-            }
-            if (clazz.equals(Double.class)) {
+            } else if (clazz.equals(Double.class)) {
                 generator.writeNumber(value.getValue().doubleValue());
-            }
-            if (clazz.equals(Float.class)) {
+            } else if (clazz.equals(Float.class)) {
                 generator.writeNumber(value.getValue().floatValue());
-            }
-            if (clazz.equals(BigDecimal.class)) {
+            } else if (clazz.equals(BigDecimal.class)) {
                 generator.writeNumber((BigDecimal) value.getValue());
+            } else {
+                generator.writeNumber(value.getValue().intValue());
             }
-
-        } else {
-            generator.writeNumber(0);
         }
+
     }
 
 }

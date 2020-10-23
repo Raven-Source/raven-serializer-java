@@ -44,8 +44,8 @@ public class JacksonSerizlizerTest {
 
         System.out.println(json);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null,\"Gender\":1}";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null,\"Gender\":1,\"Platform\":\"wx\"}";
 
         Assert.assertEquals(json, serializerRes);
 
@@ -106,6 +106,12 @@ public class JacksonSerizlizerTest {
         Assert.assertEquals(paper.getColor(), paperDes.getColor());
 
         String json = "{\"Color\":\"2\"}";   //ColorType:B
+        data = json.getBytes("UTF-8");
+        paper = serializer.deserialize(Paper.class, data);
+        Assert.assertEquals(paper.getColor(), ColorType.B);
+        System.out.println(paper.getColor());
+
+         json = "{\"Color\":\"B\"}";   //ColorType:B
         data = json.getBytes("UTF-8");
         paper = serializer.deserialize(Paper.class, data);
         Assert.assertEquals(paper.getColor(), ColorType.B);

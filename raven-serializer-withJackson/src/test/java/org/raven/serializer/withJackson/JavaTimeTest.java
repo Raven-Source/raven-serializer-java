@@ -2,10 +2,16 @@ package org.raven.serializer.withJackson;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -16,21 +22,34 @@ import java.util.Date;
 public class JavaTimeTest {
 
     @Test
-    public void test() throws IOException {
+    public void test() throws Exception {
 
         JacksonSerializer serializer = new JacksonSerializer();
 
+        for (Field declaredField : DateTimeFormatter.class.getDeclaredFields()) {
+            if (Modifier.isStatic(declaredField.getModifiers()) && declaredField.getType().equals(DateTimeFormatter.class)) {
+                DateTimeFormatter dateTimeFormatter = (DateTimeFormatter) declaredField.get(DateTimeFormatter.class);
+                System.out.println(declaredField.getName() + ": " + serializer.getMapper().writeValueAsString(ZonedDateTime.now().format(dateTimeFormatter)));
+            }
+        }
+
         LocalDateTime localDateTime = LocalDateTime.now();
+        String dateStr = localDateTime.toString();
+        System.out.println(dateStr);
 
         String res = serializer.serializeToString(localDateTime);
         System.out.println(res);
+        Assert.assertEquals("\"" + dateStr + "\"", res);
 
-        localDateTime = serializer.deserialize(LocalDateTime.class, res.getBytes());
-        System.out.println(localDateTime);
+        LocalDateTime localDateTime2 = serializer.deserialize(LocalDateTime.class, res.getBytes());
+        System.out.println(localDateTime2);
+        Assert.assertEquals(localDateTime, localDateTime2);
 
         Book book = new Book();
-        book.setDate(localDateTime);res = serializer.serializeToString(book);
+        book.setDate(localDateTime2);
+        res = serializer.serializeToString(book);
         System.out.println(res);
+        Assert.assertEquals(res, "{\"date\":\"" + dateStr + "\"}");
 
     }
 

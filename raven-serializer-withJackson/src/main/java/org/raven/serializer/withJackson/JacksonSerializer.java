@@ -1,6 +1,7 @@
 package org.raven.serializer.withJackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
 import org.raven.commons.util.Args;
 import org.raven.serializer.core.BasicSerializer;
 import org.raven.serializer.core.Serializer;
@@ -21,8 +22,10 @@ import java.text.SimpleDateFormat;
 public class JacksonSerializer extends BasicSerializer
         implements Serializer, StringSerializer {
 
+    @Getter
     private ObjectMapper mapper;
-    private SerializerSetting _setting;
+    @Getter
+    private SerializerSetting setting;
 
 //    /**
 //     * 设置dataFormatString
@@ -46,11 +49,11 @@ public class JacksonSerializer extends BasicSerializer
 
     public JacksonSerializer() {
 
-        _setting = SerializerSetting.getDefault();
+        this.setting = SerializerSetting.getDefault();
 
-        mapper = ObjectMapperConfig.getObjectMapper();
-        mapper.setDateFormat(new SimpleDateFormat(_setting.getDateFormatString()));
-        mapper.setTimeZone(_setting.getTimeZone());
+        this.mapper = ObjectMapperConfig.getObjectMapper();
+        this.mapper.setDateFormat(new SimpleDateFormat(setting.getDateFormatString()));
+        this.mapper.setTimeZone(setting.getTimeZone());
     }
 
     /**
@@ -60,11 +63,11 @@ public class JacksonSerializer extends BasicSerializer
      */
     public JacksonSerializer(SerializerSetting setting) {
 
-        _setting = setting != null ? setting : SerializerSetting.getDefault();
+        this.setting = setting != null ? setting : SerializerSetting.getDefault();
 
-        mapper = ObjectMapperConfig.getObjectMapper();
-        mapper.setDateFormat(new SimpleDateFormat(_setting.getDateFormatString()));
-        mapper.setTimeZone(_setting.getTimeZone());
+        this.mapper = ObjectMapperConfig.getObjectMapper();
+        this.mapper.setDateFormat(new SimpleDateFormat(this.setting.getDateFormatString()));
+        this.mapper.setTimeZone(this.setting.getTimeZone());
     }
 
     /**
