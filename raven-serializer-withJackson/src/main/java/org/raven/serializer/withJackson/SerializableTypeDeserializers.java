@@ -22,7 +22,10 @@ public class SerializableTypeDeserializers extends Deserializers.Base implements
 
     @Override
     public JsonDeserializer<?> findEnumDeserializer(Class<?> refType, DeserializationConfig config, BeanDescription beanDesc) throws JsonMappingException {
-        if (ValueType.class.isAssignableFrom(refType)) {
+
+        if (StringType.class.isAssignableFrom(refType)) {
+            return new StringTypeDeserializer(refType);
+        } else if (ValueType.class.isAssignableFrom(refType)) {
             return new ValueTypeDeserializer(refType);
         } else {
             return super.findEnumDeserializer(refType, config, beanDesc);

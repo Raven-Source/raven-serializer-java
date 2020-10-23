@@ -9,8 +9,8 @@ import org.raven.commons.data.StringType;
  */
 public enum Platform implements StringType {
 
-    wx("wx"),
-    ali("ali");
+    WX("wx"),
+    Ali("ali");
 
     private final String value;
 

@@ -29,7 +29,7 @@ public class StringTypeSerializer extends JsonSerializer<StringType>
     public void serialize(StringType value, JsonGenerator generator, SerializerProvider provider) throws IOException {
 
         if (value == null) {
-            generator.writeString(StringUtils.EMPTY);
+            generator.writeNull();
         } else {
             generator.writeString(value.getValue());
         }

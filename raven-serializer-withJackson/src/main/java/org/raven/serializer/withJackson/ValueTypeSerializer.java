@@ -31,7 +31,7 @@ public class ValueTypeSerializer extends JsonSerializer<ValueType>
     public void serialize(ValueType value, JsonGenerator generator, SerializerProvider provider) throws IOException {
 
         if (value == null) {
-            generator.writeNumber(0);
+            generator.writeNull();
         } else {
 
             Class<?> clazz = SerializableTypeUtils.getGenericType(value.getClass());

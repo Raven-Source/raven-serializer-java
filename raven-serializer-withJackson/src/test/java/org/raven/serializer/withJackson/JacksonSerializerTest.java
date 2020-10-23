@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class JacksonSerizlizerTest {
+public class JacksonSerializerTest {
 
     User user;
 
