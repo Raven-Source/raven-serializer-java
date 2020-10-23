@@ -11,12 +11,9 @@ import java.util.Date;
  */
 public class MultiFormatDateModule extends SimpleModule {
 
-    protected SerializerSetting setting;
-
     public MultiFormatDateModule(SerializerSetting setting) {
         super("MultiFormatDateModule", PackageVersion.VERSION);
 
-        this.setting = setting;
         this.addDeserializer(Date.class, new MultiFormatDateDeserializer(setting.getDeserializeDateFormatString()));
     }
 }

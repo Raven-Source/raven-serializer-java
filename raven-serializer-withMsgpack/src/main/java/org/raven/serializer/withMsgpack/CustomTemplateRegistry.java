@@ -35,16 +35,13 @@ public class CustomTemplateRegistry extends TemplateRegistry {
     public synchronized Template lookup(Type targetType) {
 
         if (targetType instanceof ParameterizedType
-            || targetType instanceof GenericArrayType
-            || targetType instanceof WildcardType
-            || targetType instanceof TypeVariable
-            || typeCache.contains(targetType)
-            || !SerializableType.class.isAssignableFrom((Class<?>) targetType)) {
-        } else if (ValueType.class.isAssignableFrom((Class<?>) targetType)) {
-            super.register(targetType, new ValueTypeTemplate((Class<?>) targetType));
-            typeCache.add(targetType);
-        } else if (StringType.class.isAssignableFrom((Class<?>) targetType)) {
-            super.register(targetType, new StringTypeTemplate((Class<?>) targetType));
+                || targetType instanceof GenericArrayType
+                || targetType instanceof WildcardType
+                || targetType instanceof TypeVariable
+                || typeCache.contains(targetType)
+                || !SerializableType.class.isAssignableFrom((Class<?>) targetType)) {
+        } else if (SerializableType.class.isAssignableFrom((Class<?>) targetType)) {
+            super.register(targetType, new SerializableTypeTemplate((Class<?>) targetType));
             typeCache.add(targetType);
         }
 

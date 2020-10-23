@@ -39,25 +39,25 @@ public class ProtobufSerializer extends BasicSerializer
     @Override
     public <T> T deserialize(Class<T> clazz, byte[] data) throws IOException {
 
-        Codec codec = ProtobufProxy.create(clazz);
-        return (T) codec.decode(data);
+        Codec<T> codec = ProtobufProxy.create(clazz);
+        return codec.decode(data);
     }
 
     @Override
     public <T> T deserialize(Class<T> clazz, byte[] data, int index, int count) throws IOException {
 
-        Codec codec = ProtobufProxy.create(clazz);
+        Codec<T> codec = ProtobufProxy.create(clazz);
         CodedInputStream codedInputStream = CodedInputStream.newInstance(data, index, count);
 
-        return (T) codec.readFrom(codedInputStream);
+        return codec.readFrom(codedInputStream);
     }
 
     @Override
     public <T> T deserialize(Class<T> clazz, InputStream inputStream) throws IOException {
 
-        Codec codec = ProtobufProxy.create(clazz);
+        Codec<T> codec = ProtobufProxy.create(clazz);
         CodedInputStream codedInputStream = CodedInputStream.newInstance(inputStream);
-        return (T) codec.readFrom(codedInputStream);
+        return codec.readFrom(codedInputStream);
 
     }
 }

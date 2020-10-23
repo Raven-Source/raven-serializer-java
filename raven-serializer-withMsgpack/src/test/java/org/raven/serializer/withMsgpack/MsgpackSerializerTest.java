@@ -126,16 +126,21 @@ public class MsgpackSerializerTest {
 
         MsgpackSerializer serializer = new MsgpackSerializer();
 
-        byte[] enumdata = serializer.serialize(ColorType.C);
-        ColorType c = serializer.deserialize(ColorType.class, enumdata);
+        byte[] data = serializer.serialize(ColorType.C);
+        ColorType c = serializer.deserialize(ColorType.class, data);
         Assert.assertEquals(c, ColorType.C);
+
+        data = serializer.serialize(Platform.Ali);
+        Platform p = serializer.deserialize(Platform.class, data);
+        Assert.assertEquals(p, Platform.Ali);
 
         User2 user2 = new User2();
         user2.setId(123);
         user2.setName("好好");
         user2.setColor(ColorType.B);
+        user2.setPlatform(Platform.Ali);
 
-        byte[] data = serializer.serialize(user2);
+        data = serializer.serialize(user2);
         String str = new String(data, Charset.forName("UTF-8"));
         System.out.println(str);
 
