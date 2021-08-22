@@ -13,61 +13,40 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 
 /**
- *  Jackson json
+ * Jackson json
  *
  * @author yi.liang
  * @since JDK1.8
  * date 2018/1/3 14:00:00
  */
 public class JacksonSerializer extends BasicSerializer
-        implements Serializer, StringSerializer {
+    implements Serializer, StringSerializer {
 
     @Getter
     private ObjectMapper mapper;
-    @Getter
-    private SerializerSetting setting;
-
-//    /**
-//     * 设置dataFormatString
-//     *
-//     * @param formatString
-//     */
-//    public void setDateFormatString(String formatString) {
-//        this.dataFormatString = formatString;
-//        mapper.setDateFormat(new SimpleDateFormat(dataFormatString));
-//    }
-//
-//    /**
-//     * 获取dataFormatString
-//     *
-//     * @return
-//     */
-//    public String getDataFormatString() {
-//        return dataFormatString;
-//    }
-
 
     public JacksonSerializer() {
-
-        this.setting = SerializerSetting.getDefault();
-
-        this.mapper = ObjectMapperConfig.getObjectMapper();
-        this.mapper.setDateFormat(new SimpleDateFormat(setting.getDateFormatString()));
-        this.mapper.setTimeZone(setting.getTimeZone());
+        this((SerializerSetting) null);
     }
 
     /**
      * 构造函数
      *
-     * @param setting
+     * @param setting SerializerSetting {@link org.raven.serializer.withJackson.SerializerSetting}
      */
     public JacksonSerializer(SerializerSetting setting) {
 
-        this.setting = setting != null ? setting : SerializerSetting.getDefault();
+        this.mapper = ObjectMapperConfig.getObjectMapper(setting != null ? setting : SerializerSetting.getDefault());
+    }
 
-        this.mapper = ObjectMapperConfig.getObjectMapper();
-        this.mapper.setDateFormat(new SimpleDateFormat(this.setting.getDateFormatString()));
-        this.mapper.setTimeZone(this.setting.getTimeZone());
+    /**
+     * 构造函数
+     *
+     * @param mapper ObjectMapper {@link com.fasterxml.jackson.databind.ObjectMapper}
+     */
+    public JacksonSerializer(ObjectMapper mapper) {
+
+        this.mapper = mapper;
     }
 
     /**

@@ -4,17 +4,19 @@ import org.junit.Test;
 import org.raven.serializer.core.Serializer;
 import org.raven.serializer.core.SerializerFactory;
 import org.raven.serializer.core.SerializerType;
+import org.raven.serializer.withJackson.ObjectMapperConfig;
 import org.raven.serializer.withJackson.SerializerSetting;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 public class PerformanceTest {
 
     @Test
     public void testAll()
-            throws Exception {
+        throws Exception {
 
         Mall mall = new Mall();
         mall.setId(1);
@@ -40,7 +42,13 @@ public class PerformanceTest {
 
         Serializer serializer = SerializerFactory.create(SerializerType.Jackson, new Object[]{SerializerSetting.getDefault()});
         byte[] data = serializer.serialize(mall);
-        String jsonStr = new String(data, Charset.forName("UTF-8"));
+        String jsonStr = new String(data, StandardCharsets.UTF_8);
+
+        System.out.println(jsonStr);
+
+        serializer = SerializerFactory.create(SerializerType.Jackson, new Object[]{ObjectMapperConfig.getObjectMapper()});
+        data = serializer.serialize(mall);
+        jsonStr = new String(data, StandardCharsets.UTF_8);
 
         System.out.println(jsonStr);
 

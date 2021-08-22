@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.ser.JavaTimeSerializerModule;
 
 import java.text.SimpleDateFormat;
 
@@ -44,10 +45,12 @@ public class ObjectMapperConfig {
             mapper.setDateFormat(new SimpleDateFormat(setting.getDateFormatString()));
         }
 
-        mapper.registerModules(new MultiFormatDateModule(setting));
-        mapper.registerModules(new SerializableTypeModule(setting));
         mapper.registerModules(new JavaTimeModule());
         mapper.registerModules(new Jdk8Module());
+        mapper.registerModules(new MultiFormatDateModule(setting));
+        mapper.registerModules(new SerializableTypeModule(setting));
+        //Override JavaTimeModule
+        mapper.registerModule(new JavaTimeSerializerModule(setting));
 
 
         mapper.setAnnotationIntrospector(new AnnotationIntrospectorWarp());

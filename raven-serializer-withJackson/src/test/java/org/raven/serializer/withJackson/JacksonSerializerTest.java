@@ -7,9 +7,11 @@ import org.raven.serializer.core.Serializer;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class JacksonSerializerTest {
 
@@ -37,14 +39,16 @@ public class JacksonSerializerTest {
     @Test
     public void Serialize() throws Exception {
 
-        JacksonSerializer serializer = new JacksonSerializer();
+        SerializerSetting setting = SerializerSetting.getDefault();
+        JacksonSerializer serializer = new JacksonSerializer(setting);
 
         byte[] data = serializer.serialize(user);
-        String json = new String(data, Charset.forName("UTF-8"));
+        String json = new String(data, StandardCharsets.UTF_8);
 
         System.out.println(json);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+        formatter.setTimeZone(setting.getTimeZone());
         String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null,\"Gender\":1,\"Platform\":\"wx\"}";
 
         Assert.assertEquals(json, serializerRes);
@@ -63,11 +67,13 @@ public class JacksonSerializerTest {
     @Test
     public void deserialize() throws Exception {
 
-        JacksonSerializer serializer = new JacksonSerializer();
+        SerializerSetting setting = SerializerSetting.getDefault();
+        JacksonSerializer serializer = new JacksonSerializer(setting);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        formatter.setTimeZone(setting.getTimeZone());
         String serializerRes = "{\"Id\":123,\"Name\":\"翻船了\",\"Time\":\"" + formatter.format(user.getTime()) + "\",\"List\":[1,3],\"A\":0,\"Date2\":null}";
-        byte[] data = serializerRes.getBytes("UTF-8");
+        byte[] data = serializerRes.getBytes(StandardCharsets.UTF_8);
 
         User user2 = serializer.deserialize(User.class, data);
         Assert.assertEquals(user.getName(), user2.getName());
@@ -84,7 +90,7 @@ public class JacksonSerializerTest {
         inputStream.close();
 
         serializerRes = "{\"Id\":123,\"Name\":null,\"List\":[1,3],\"A\":0,\"Gender\":2,\"Date2\":null}";
-        data = serializerRes.getBytes("UTF-8");
+        data = serializerRes.getBytes(StandardCharsets.UTF_8);
         user2 = serializer.deserialize(User.class, data);
         Assert.assertEquals(user2.getGender(), 2);
         Assert.assertNull(user2.getName());

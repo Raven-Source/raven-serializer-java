@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -25,15 +26,18 @@ public class JavaTimeTest {
     public void test() throws Exception {
 
         JacksonSerializer serializer = new JacksonSerializer();
+        LocalDateTime localDateTime = LocalDateTime.of(2021, 2, 12, 5, 10, 18, 900000000);
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.of("+0800"));
 
         for (Field declaredField : DateTimeFormatter.class.getDeclaredFields()) {
             if (Modifier.isStatic(declaredField.getModifiers()) && declaredField.getType().equals(DateTimeFormatter.class)) {
                 DateTimeFormatter dateTimeFormatter = (DateTimeFormatter) declaredField.get(DateTimeFormatter.class);
-                System.out.println(declaredField.getName() + ": " + serializer.getMapper().writeValueAsString(ZonedDateTime.now().format(dateTimeFormatter)));
+                System.out.println(declaredField.getName() + ": "
+                    + serializer.getMapper().writeValueAsString(zonedDateTime.format(dateTimeFormatter)));
             }
         }
 
-        LocalDateTime localDateTime = LocalDateTime.now();
+
         String dateStr = localDateTime.toString();
         System.out.println(dateStr);
 
