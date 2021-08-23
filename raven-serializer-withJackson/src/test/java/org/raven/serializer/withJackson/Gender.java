@@ -1,5 +1,6 @@
 package org.raven.serializer.withJackson;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.raven.commons.data.ValueType;
 import org.raven.commons.data.annotation.Create;
 

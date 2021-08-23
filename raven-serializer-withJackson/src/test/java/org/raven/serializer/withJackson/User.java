@@ -1,6 +1,7 @@
 package org.raven.serializer.withJackson;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.raven.commons.data.MemberFormatType;
@@ -13,6 +14,7 @@ import java.util.List;
 @Contract(formatType = MemberFormatType.PascalCase)
 @Data
 public class User {
+
     private int id;
     private String name;
     private Date time;

@@ -1,5 +1,6 @@
 package org.raven.serializer.withJackson;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -24,16 +25,21 @@ public class ObjectMapperConfig {
         return getObjectMapper(SerializerSetting.getDefault());
     }
 
+
+    public static ObjectMapper getObjectMapper(SerializerSetting setting) {
+        return getObjectMapper(setting, null);
+    }
+
     /**
      * @param setting
      * @return
      */
-    public static ObjectMapper getObjectMapper(SerializerSetting setting) {
+    public static ObjectMapper getObjectMapper(SerializerSetting setting, JsonFactory jsonFactory) {
 
 //        DefaultDeserializationContext deserializationContext =
 //                new DefaultDeserializationContext.Impl(BeanDeserializerFactoryWarp.instance(setting));
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper(jsonFactory);
         //mapper.setSerializerFactory(mapper.getSerializerFactory().withSerializerModifier(new ModifySerializer()));
 
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

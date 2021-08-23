@@ -6,24 +6,17 @@
     <parent>
         <artifactId>raven-serializer</artifactId>
         <groupId>io.github.raven-source</groupId>
-        <version>3.0.1</version>
+        <version>3.0.2</version>
     </parent>
 
     <artifactId>raven-serializer-performancetest</artifactId>
 
+
+    <properties>
+        <msgpack.version>0.6.12</msgpack.version>
+    </properties>
+
     <dependencies>
-
-        <dependency>
-            <groupId>org.msgpack</groupId>
-            <artifactId>msgpack</artifactId>
-            <version>${msgpack.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>io.github.raven-source</groupId>
@@ -34,6 +27,12 @@
         <dependency>
             <groupId>io.github.raven-source</groupId>
             <artifactId>raven-serializer-withJackson</artifactId>
+            <version>${raven-serializer.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.raven-source</groupId>
+            <artifactId>raven-serializer-withJacksonMsgpack</artifactId>
             <version>${raven-serializer.version}</version>
         </dependency>
 
@@ -51,6 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>

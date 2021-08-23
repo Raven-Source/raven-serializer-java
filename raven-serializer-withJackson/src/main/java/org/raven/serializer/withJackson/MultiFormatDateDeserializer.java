@@ -33,7 +33,7 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Date>
     @Override
     public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 
-        switch (p.getCurrentTokenId()) {
+        switch (p.currentTokenId()) {
             case JsonTokenId.ID_STRING:
                 return _parseDate(p.getText().trim(), ctxt);
             case JsonTokenId.ID_NUMBER_INT: {

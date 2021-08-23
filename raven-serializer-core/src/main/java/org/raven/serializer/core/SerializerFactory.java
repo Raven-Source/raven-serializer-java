@@ -1,5 +1,7 @@
 package org.raven.serializer.core;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -12,12 +14,14 @@ import java.util.StringJoiner;
  * date 2018.9.25
  * @since JDK1.8
  */
+@Slf4j
 public class SerializerFactory {
 
     private static HashMap<String, Serializer> _serializerDict = new HashMap<String, Serializer>();
     private static EnumMap<SerializerType, String[]> _clazzNameDict = new EnumMap<SerializerType, String[]>(SerializerType.class) {
         {
             put(SerializerType.Jackson, new String[]{"org.raven.serializer.withJackson", "JacksonSerializer"});
+            put(SerializerType.Msgpack, new String[]{"org.raven.serializer.withJacksonMsgpack", "JacksonMsgpackSerializer"});
 //            put(SerializerType.Protobuf, new String[]{"org.raven.serializer.withProtobuf", "ProtobufSerializer"});
             put(SerializerType.MessagePack, new String[]{"org.raven.serializer.withMsgpack", "MsgpackSerializer"});
         }
@@ -65,6 +69,7 @@ public class SerializerFactory {
                     return null;
                 }
             } catch (Exception ex) {
+                log.error(ex.getMessage(), ex);
                 return null;
             }
         }

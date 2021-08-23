@@ -1,9 +1,9 @@
 package org.raven.serializer.withJackson;
 
 import com.fasterxml.jackson.databind.introspect.Annotated;
-import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import org.raven.commons.data.annotation.Ignore;
+import org.raven.commons.data.annotation.Member;
 
 /**
  * @author yi.liang
@@ -13,12 +13,20 @@ import org.raven.commons.data.annotation.Ignore;
 public class AnnotationIntrospectorWarp extends JacksonAnnotationIntrospector {
 
     @Override
-    public boolean hasIgnoreMarker(AnnotatedMember m) {
-
-        return _isIgnorable(m) || super.hasIgnoreMarker(m);
+    protected boolean _isIgnorable(Annotated a) {
+        return _findAnnotation(a, Ignore.class) != null
+            || super._isIgnorable(a);
     }
 
-    protected boolean _isIgnorable(Annotated a) {
-        return _findAnnotation(a, Ignore.class) != null;
+    @Override
+    public Integer findPropertyIndex(Annotated a) {
+        Member member = _findAnnotation(a, Member.class);
+        if (member != null) {
+            int ix = member.index();
+            if (ix != Member.INDEX_UNKNOWN) {
+                return Integer.valueOf(ix);
+            }
+        }
+        return super.findPropertyIndex(a);
     }
 }

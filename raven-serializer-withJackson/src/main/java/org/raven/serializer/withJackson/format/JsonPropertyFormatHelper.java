@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import org.raven.commons.data.MemberFormatUtils;
 import org.raven.commons.data.annotation.Contract;
 import org.raven.commons.data.annotation.Member;
+import org.raven.commons.util.StringUtils;
 
 /**
  * @author yi.liang
@@ -25,7 +26,7 @@ public class JsonPropertyFormatHelper {
         }
 
         Member dataMember = method.getAnnotation(Member.class);
-        if (dataMember != null) {
+        if (dataMember != null && !StringUtils.isBlank(dataMember.value())) {
             return dataMember.value();
         }
 
@@ -51,7 +52,7 @@ public class JsonPropertyFormatHelper {
             return defaultName;
 
         Member dataMember = field.getAnnotation(Member.class);
-        if (dataMember != null) {
+        if (dataMember != null && !StringUtils.isBlank(dataMember.value())) {
             return dataMember.value();
         }
 
