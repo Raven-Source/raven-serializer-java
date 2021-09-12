@@ -5,7 +5,7 @@
     <parent>
         <artifactId>raven-serializer</artifactId>
         <groupId>io.github.raven-source</groupId>
-        <version>3.0.2</version>
+        <version>3.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -29,6 +29,12 @@
             <groupId>org.msgpack</groupId>
             <artifactId>jackson-dataformat-msgpack</artifactId>
             <version>${jackson-dataformat-msgpack.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
