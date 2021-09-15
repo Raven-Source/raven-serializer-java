@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 public class ObjectMapperConfig {
 
     /**
-     * @return
+     * @return ObjectMapper
      */
     public static ObjectMapper getObjectMapper() {
         return getObjectMapper(SerializerSetting.getDefault());
@@ -31,8 +31,11 @@ public class ObjectMapperConfig {
     }
 
     /**
-     * @param setting
-     * @return
+     * get ObjectMapper
+     *
+     * @param setting     SerializerSetting
+     * @param jsonFactory JsonFactory
+     * @return ObjectMapper
      */
     public static ObjectMapper getObjectMapper(SerializerSetting setting, JsonFactory jsonFactory) {
 

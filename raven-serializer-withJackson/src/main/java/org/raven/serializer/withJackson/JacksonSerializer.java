@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
  * date 2018/1/3 14:00:00
  */
 public class JacksonSerializer extends BasicSerializer
-    implements Serializer, StringSerializer {
+        implements Serializer, StringSerializer {
 
     @Getter
     private ObjectMapper mapper;
@@ -50,9 +50,7 @@ public class JacksonSerializer extends BasicSerializer
     }
 
     /**
-     * @param obj
-     * @return
-     * @throws IOException
+     *
      */
     @Override
     public String serializeToString(Object obj) throws IOException {
@@ -64,9 +62,7 @@ public class JacksonSerializer extends BasicSerializer
     }
 
     /**
-     * @param obj
-     * @return
-     * @throws IOException
+     *
      */
     @Override
     public byte[] serialize(Object obj) throws IOException {
@@ -82,9 +78,7 @@ public class JacksonSerializer extends BasicSerializer
     }
 
     /**
-     * @param obj
-     * @param outputStream
-     * @throws IOException
+     *
      */
     @Override
     public void serialize(Object obj, OutputStream outputStream) throws IOException {
@@ -100,11 +94,7 @@ public class JacksonSerializer extends BasicSerializer
     }
 
     /**
-     * @param clazz
-     * @param data
-     * @param <T>
-     * @return
-     * @throws IOException
+     *
      */
     @Override
     public <T> T deserialize(Class<T> clazz, byte[] data) throws IOException {
@@ -121,13 +111,7 @@ public class JacksonSerializer extends BasicSerializer
     }
 
     /**
-     * @param clazz
-     * @param data
-     * @param index
-     * @param count
-     * @param <T>
-     * @return
-     * @throws IOException
+     *
      */
     @Override
     public <T> T deserialize(Class<T> clazz, byte[] data, int index, int count) throws IOException {
@@ -142,11 +126,7 @@ public class JacksonSerializer extends BasicSerializer
     }
 
     /**
-     * @param clazz
-     * @param inputStream
-     * @param <T>
-     * @return
-     * @throws IOException
+     *
      */
     @Override
     public <T> T deserialize(Class<T> clazz, InputStream inputStream) throws IOException {

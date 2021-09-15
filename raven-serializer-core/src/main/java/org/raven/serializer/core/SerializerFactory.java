@@ -28,10 +28,10 @@ public class SerializerFactory {
     };
 
     /**
-     * @param serializerType
-     * @param args
-     * @return
-     * @throws Exception
+     * @param serializerType serializerType
+     * @param args args
+     * @return Serializer
+     * @throws Exception Exception
      */
     private static Serializer getDataSerializer(SerializerType serializerType, Object[] args) {
 
@@ -77,9 +77,9 @@ public class SerializerFactory {
     }
 
     /**
-     * @param serializerType
-     * @param args
-     * @return
+     * @param serializerType serializerType
+     * @param args args
+     * @return String
      */
     private static String getKey(SerializerType serializerType, Object[] args) {
 
@@ -95,21 +95,21 @@ public class SerializerFactory {
     }
 
     /**
-     * 创建类型
+     * create Serializer
      *
-     * @param serializerType
-     * @return
+     * @param serializerType serializerType
+     * @return Serializer
      */
     public static Serializer create(SerializerType serializerType) {
         return create(serializerType, null);
     }
 
     /**
-     * 创建类型
+     * create Serializer
      *
-     * @param serializerType
-     * @param args
-     * @return
+     * @param serializerType serializerType
+     * @param args args
+     * @return Serializer
      */
     public static Serializer create(SerializerType serializerType, Object[] args) {
         //Serializer serializer = (Serializer)Activator.CreateInstance(type, new object[] { });
@@ -117,21 +117,21 @@ public class SerializerFactory {
     }
 
     /**
-     * 创建类型
+     * create Serializer
      *
-     * @param serializerType
-     * @return
+     * @param serializerType serializerType
+     * @return Serializer
      */
     public static Serializer create(String serializerType) {
         return create(serializerType, null);
     }
 
     /**
-     * 创建类型
+     * create Serializer
      *
-     * @param serializerTypeStr
-     * @param args
-     * @return
+     * @param serializerTypeStr serializerTypeString
+     * @param args args
+     * @return Serializer
      */
     public static Serializer create(String serializerTypeStr, Object[] args) {
         SerializerType serializerType = Enum.valueOf(SerializerType.class, serializerTypeStr);

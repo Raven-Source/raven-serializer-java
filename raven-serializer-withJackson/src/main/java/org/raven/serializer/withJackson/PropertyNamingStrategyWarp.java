@@ -15,11 +15,6 @@ public class PropertyNamingStrategyWarp extends PropertyNamingStrategy {
 
     /**
      * for deserialize
-     *
-     * @param config
-     * @param method
-     * @param defaultName
-     * @return
      */
     @Override
     public String nameForSetterMethod(MapperConfig<?> config,
@@ -29,11 +24,6 @@ public class PropertyNamingStrategyWarp extends PropertyNamingStrategy {
 
     /**
      * for serialize
-     *
-     * @param config
-     * @param method
-     * @param defaultName
-     * @return
      */
     @Override
     public String nameForGetterMethod(MapperConfig<?> config,

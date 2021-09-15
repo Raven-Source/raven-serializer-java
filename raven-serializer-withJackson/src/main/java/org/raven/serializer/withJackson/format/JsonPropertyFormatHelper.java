@@ -15,9 +15,9 @@ import org.raven.commons.util.StringUtils;
 public class JsonPropertyFormatHelper {
 
     /**
-     * @param method
-     * @param defaultName
-     * @return
+     * @param method      method
+     * @param defaultName defaultName
+     * @return String
      */
     public static String format(AnnotatedMember method, String defaultName) {
 
@@ -42,9 +42,9 @@ public class JsonPropertyFormatHelper {
     }
 
     /**
-     * @param field
-     * @param defaultName
-     * @return
+     * @param field       field
+     * @param defaultName defaultName
+     * @return String
      */
     public static String format(AnnotatedField field, String defaultName) {
 

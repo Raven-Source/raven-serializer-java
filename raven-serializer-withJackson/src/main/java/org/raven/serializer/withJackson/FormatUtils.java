@@ -14,9 +14,9 @@ public class FormatUtils {
     /**
      * naming Format
      *
-     * @param value
-     * @param propertyFormatType
-     * @return
+     * @param value              value
+     * @param propertyFormatType propertyFormatType
+     * @return String
      */
     public static String namingFormat(String value, MemberFormatType propertyFormatType) {
 
@@ -35,9 +35,9 @@ public class FormatUtils {
     }
 
     /**
-     * @param value
-     * @param propertyFormatType
-     * @return
+     * @param value              value
+     * @param propertyFormatType propertyFormatType
+     * @return String
      */
     private static String convertFirstChar(String value, MemberFormatType propertyFormatType) {
         char[] _temp = value.toCharArray();

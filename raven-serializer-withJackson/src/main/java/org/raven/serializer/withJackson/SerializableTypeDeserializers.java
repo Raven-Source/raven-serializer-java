@@ -21,6 +21,7 @@ public class SerializableTypeDeserializers extends Deserializers.Base implements
     private static final long serialVersionUID = 1L;
 
     @Override
+    @SuppressWarnings("unchecked")
     public JsonDeserializer<?> findEnumDeserializer(Class<?> refType, DeserializationConfig config, BeanDescription beanDesc) throws JsonMappingException {
 
         if (StringType.class.isAssignableFrom(refType)) {
@@ -33,6 +34,7 @@ public class SerializableTypeDeserializers extends Deserializers.Base implements
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public JsonDeserializer<?> findReferenceDeserializer(ReferenceType refType, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer contentTypeDeserializer, JsonDeserializer<?> contentDeserializer) throws JsonMappingException {
 
         if (StringType.class.isAssignableFrom(refType.getRawClass())) {

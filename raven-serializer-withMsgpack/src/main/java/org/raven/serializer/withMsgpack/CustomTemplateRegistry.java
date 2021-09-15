@@ -28,10 +28,11 @@ public class CustomTemplateRegistry extends TemplateRegistry {
     }
 
     /**
-     * @param targetType
-     * @return
+     * @param targetType targetType
+     * @return Template
      */
     @Override
+    @SuppressWarnings("unchecked")
     public synchronized Template lookup(Type targetType) {
 
         if (targetType instanceof ParameterizedType

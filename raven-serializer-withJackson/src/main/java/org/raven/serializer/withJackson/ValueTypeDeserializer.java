@@ -19,19 +19,19 @@ import java.io.IOException;
  */
 @Slf4j
 public class ValueTypeDeserializer<T extends ValueType> extends StdDeserializer<T>
-    implements java.io.Serializable {
+        implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param target
+     * @param target target
      */
     public ValueTypeDeserializer(final Class<T> target) {
         super(target);
     }
 
     /**
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isCachable() {
@@ -39,16 +39,13 @@ public class ValueTypeDeserializer<T extends ValueType> extends StdDeserializer<
     }
 
     /**
-     * @param p
-     * @param ctxt
-     * @return
-     * @throws IOException
-     * @throws JsonProcessingException
+     *
      */
     @Override
+    @SuppressWarnings("unchecked")
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 
-        int tokenId = p.getCurrentTokenId();
+        int tokenId = p.currentTokenId();
         if (tokenId == JsonTokenId.ID_NUMBER_INT) {
             return SerializableTypeUtils.valueOf((Class<T>) _valueClass, p.getIntValue());
         } else if (tokenId == JsonTokenId.ID_NUMBER_FLOAT) {

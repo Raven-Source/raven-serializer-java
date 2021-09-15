@@ -11,7 +11,7 @@ import org.msgpack.template.TemplateRegistry;
 public class CustomMessagePack extends MessagePack {
 
     /**
-     * @param registry
+     * @param registry registry
      */
     public CustomMessagePack(TemplateRegistry registry) {
         super(registry);

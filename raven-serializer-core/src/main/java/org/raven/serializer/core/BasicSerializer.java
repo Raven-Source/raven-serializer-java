@@ -27,11 +27,6 @@ public abstract class BasicSerializer {
         return obj.getBytes(charset);
     }
 
-    /**
-     * @param obj
-     * @return
-     * @throws NullPointerException
-     */
     public byte[] trySerialize(final Object obj)
             throws NullPointerException {
 
@@ -45,12 +40,6 @@ public abstract class BasicSerializer {
         return null;
     }
 
-    /**
-     * @param clazz
-     * @param data
-     * @return
-     * @throws NullPointerException
-     */
     public <T> T tryDeserialize(final Class<T> clazz, final byte[] data)
             throws NullPointerException {
         Args.notNull(data, "data");
@@ -58,14 +47,7 @@ public abstract class BasicSerializer {
         return this.tryDeserialize(clazz, data, 0, data.length);
     }
 
-    /**
-     * @param clazz
-     * @param data
-     * @param index
-     * @param count
-     * @return
-     * @throws NullPointerException
-     */
+    @SuppressWarnings("unchecked")
     public <T> T tryDeserialize(final Class<T> clazz, final byte[] data, final int index, final int count)
             throws NullPointerException {
 
@@ -79,14 +61,7 @@ public abstract class BasicSerializer {
         return null;
     }
 
-    /**
-     * @param clazz
-     * @param inputStream
-     * @param <T>
-     * @return
-     * @throws NullPointerException
-     * @throws IOException
-     */
+    @SuppressWarnings("unchecked")
     public <T> T tryDeserialize(final Class<T> clazz, final InputStream inputStream)
             throws NullPointerException, IOException {
 

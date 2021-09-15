@@ -15,35 +15,24 @@ import java.io.IOException;
  * date 2020.10.22 18:08
  */
 public class StringTypeDeserializer<T extends StringType> extends StdDeserializer<T>
-    implements java.io.Serializable {
+        implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @param target
-     */
     public StringTypeDeserializer(final Class<T> target) {
         super(target);
     }
 
-    /**
-     * @return
-     */
     @Override
     public boolean isCachable() {
         return true;
     }
 
-    /**
-     * @param p
-     * @param ctxt
-     * @return
-     * @throws IOException
-     * @throws JsonProcessingException
-     */
+
     @Override
+    @SuppressWarnings("unchecked")
     public T deserialize(JsonParser p, DeserializationContext ctxt)
-        throws IOException, JsonProcessingException {
+            throws IOException {
 
         return SerializableTypeUtils.valueOf((Class<T>) _valueClass, p.getValueAsString());
 

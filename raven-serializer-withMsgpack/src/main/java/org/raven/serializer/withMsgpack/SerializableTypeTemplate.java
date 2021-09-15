@@ -16,22 +16,22 @@ import java.math.BigInteger;
  * @since JDK1.8
  * date 2018/2/11 18:00:00
  */
-public class SerializableTypeTemplate<T extends SerializableType> extends AbstractTemplate<T> {
+public class SerializableTypeTemplate<T extends SerializableType<?>> extends AbstractTemplate<T> {
 
     private final Class<T> target;
 
     /**
-     * @param target
+     * @param target target
      */
     public SerializableTypeTemplate(final Class<T> target) {
         this.target = target;
     }
 
     /**
-     * @param pk
-     * @param target
-     * @param required
-     * @throws IOException
+     * @param pk       pk
+     * @param target   target
+     * @param required required
+     * @throws IOException IOException
      */
     @Override
     public void write(Packer pk, T target, boolean required) throws IOException {
@@ -46,20 +46,13 @@ public class SerializableTypeTemplate<T extends SerializableType> extends Abstra
         pk.write((target).getValue());
     }
 
-    /**
-     * @param u
-     * @param to
-     * @param required
-     * @return
-     * @throws IOException
-     */
     @Override
     public T read(Unpacker u, T to, boolean required) throws IOException {
         if (!required && u.trySkipNil()) {
             return null;
         }
 
-        Class genericType = SerializableTypeUtils.getGenericType(target);
+        Class<?> genericType = SerializableTypeUtils.getGenericType(target);
         if (genericType.equals(String.class)) {
             return SerializableTypeUtils.valueOf(target, u.readString());
         }

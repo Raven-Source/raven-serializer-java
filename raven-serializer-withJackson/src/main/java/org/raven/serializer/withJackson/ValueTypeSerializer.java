@@ -22,10 +22,10 @@ public class ValueTypeSerializer extends JsonSerializer<ValueType>
     static final ValueTypeSerializer INSTANCE = new ValueTypeSerializer();
 
     /**
-     * @param value
-     * @param generator
-     * @param provider
-     * @throws IOException
+     * @param value value
+     * @param generator generator
+     * @param provider provider
+     * @throws IOException IOException
      */
     @Override
     public void serialize(ValueType value, JsonGenerator generator, SerializerProvider provider) throws IOException {

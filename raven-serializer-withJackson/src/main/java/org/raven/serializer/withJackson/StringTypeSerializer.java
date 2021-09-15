@@ -14,16 +14,13 @@ import java.io.IOException;
  * @since JDK1.8
  */
 public class StringTypeSerializer extends JsonSerializer<StringType>
-    implements java.io.Serializable {
+        implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
     static final StringTypeSerializer INSTANCE = new StringTypeSerializer();
 
     /**
-     * @param value
-     * @param generator
-     * @param provider
-     * @throws IOException
+     *
      */
     @Override
     public void serialize(StringType value, JsonGenerator generator, SerializerProvider provider) throws IOException {

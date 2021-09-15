@@ -16,6 +16,7 @@ import java.io.OutputStream;
  * @since JDK1.8
  * date 2019.08.22 19:35
  */
+@SuppressWarnings("unchecked")
 public class ProtobufSerializer extends BasicSerializer
         implements Serializer {
 

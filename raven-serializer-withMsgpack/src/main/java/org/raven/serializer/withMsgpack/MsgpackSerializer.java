@@ -27,53 +27,39 @@ public class MsgpackSerializer extends BasicSerializer
     }
 
     /**
-     * @param obj
-     * @return
-     * @throws IOException
+     * @param obj obj
+     * @return byte[]
+     * @throws IOException IOException
      */
     public byte[] serialize(Object obj) throws IOException {
         return msgpack.write(obj);
     }
 
     /**
-     * @param obj
-     * @param outputStream
-     * @throws IOException
+     * @param obj          obj
+     * @param outputStream outputStream
+     * @throws IOException IOException
      */
     public void serialize(Object obj, OutputStream outputStream) throws IOException {
         msgpack.write(outputStream, obj);
     }
 
     /**
-     * @param clazz
-     * @param data
-     * @param <T>
-     * @return
-     * @throws IOException
+     *
      */
     public <T> T deserialize(Class<T> clazz, byte[] data) throws IOException {
         return msgpack.read(data, clazz);
     }
 
     /**
-     * @param clazz
-     * @param data
-     * @param index
-     * @param count
-     * @param <T>
-     * @return
-     * @throws IOException
+     *
      */
     public <T> T deserialize(Class<T> clazz, byte[] data, int index, int count) throws IOException {
         return msgpack.read(data, index, count, clazz);
     }
 
     /**
-     * @param clazz
-     * @param inputStream
-     * @param <T>
-     * @return
-     * @throws IOException
+     *
      */
     public <T> T deserialize(Class<T> clazz, InputStream inputStream) throws IOException {
         return msgpack.read(inputStream, clazz);

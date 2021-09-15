@@ -11,7 +11,7 @@ import org.msgpack.template.TemplateRegistry;
 public class MessagePackFactory {
 
     /**
-     * @return
+     * @return MessagePack
      */
     public static MessagePack create() {
 

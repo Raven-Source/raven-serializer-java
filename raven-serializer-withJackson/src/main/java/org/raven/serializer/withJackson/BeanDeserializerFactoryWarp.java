@@ -16,20 +16,18 @@ import java.util.Date;
  * date 2018/3/20 14:00:00
  */
 @Deprecated
+@SuppressWarnings("unchecked")
 public class BeanDeserializerFactoryWarp extends BeanDeserializerFactory {
 
     public final static BeanDeserializerFactoryWarp instance(SerializerSetting setting) {
         return new BeanDeserializerFactoryWarp(
-            new DeserializerFactoryConfig()
-            , setting);
+                new DeserializerFactoryConfig()
+                , setting);
     }
 
     private SerializerSetting setting;
     private MultiFormatDateDeserializer dateDeserializer;
 
-    /**
-     * @param config
-     */
     public BeanDeserializerFactoryWarp(DeserializerFactoryConfig config, SerializerSetting setting) {
         super(config);
 

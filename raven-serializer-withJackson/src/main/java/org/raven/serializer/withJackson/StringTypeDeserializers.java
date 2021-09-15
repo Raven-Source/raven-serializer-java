@@ -20,6 +20,7 @@ public class StringTypeDeserializers extends Deserializers.Base implements Seria
     private static final long serialVersionUID = 1L;
 
     @Override
+    @SuppressWarnings("unchecked")
     public JsonDeserializer<?> findEnumDeserializer(Class<?> refType, DeserializationConfig config, BeanDescription beanDesc) throws JsonMappingException {
         if (StringType.class.isAssignableFrom(refType)) {
             return new StringTypeDeserializer(refType);
@@ -29,6 +30,7 @@ public class StringTypeDeserializers extends Deserializers.Base implements Seria
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public JsonDeserializer<?> findReferenceDeserializer(ReferenceType refType, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer contentTypeDeserializer, JsonDeserializer<?> contentDeserializer) throws JsonMappingException {
         if (StringType.class.isAssignableFrom(refType.getRawClass())) {
             return new StringTypeDeserializer(refType.getRawClass());
