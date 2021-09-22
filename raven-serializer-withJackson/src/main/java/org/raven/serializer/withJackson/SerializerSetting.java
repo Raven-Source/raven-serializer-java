@@ -2,8 +2,8 @@ package org.raven.serializer.withJackson;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.raven.commons.util.StringUtils;
 
-import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.TimeZone;
 
@@ -46,7 +46,11 @@ public class SerializerSetting {
             DATE_TIME_SECOND
         });
 
-        setting.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String timezone = System.getProperty("user.timezone");
+        if (StringUtils.isBlank(timezone)) {
+            timezone = "UTC";
+        }
+        setting.setTimeZone(TimeZone.getTimeZone(timezone));
 
         return setting;
     }
